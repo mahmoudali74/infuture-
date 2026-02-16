@@ -53,7 +53,15 @@ export default function Footer() {
               </p>
 
               <p className="address">
-                📍 عمارات المروة، أرض الجولف، مصر الجديدة
+                📍
+                <a
+                  href="https://maps.app.goo.gl/eKa1i553xi1PCfeU8?g_st=ac"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ color: "inherit", textDecoration: "none" }}
+                >
+                  عمران المروة، أرض الجولف، مصر الجديدة
+                </a>
               </p>
 
               {/* فيسبوك */}
