@@ -1,0 +1,89 @@
+/* 🔹 Top Bar */
+.top-bar {
+  background: #0b1f3a; /* كحلي أعمق */
+  color: #ffffff;
+  font-size: 14px;
+  padding: 8px 0;
+}
+
+.social-icons svg {
+  margin-right: 12px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  color: #ffffff;
+}
+
+.social-icons svg:hover {
+  color: #00c2ff; /* تركواز أنضف */
+}
+
+.contact-info {
+  font-weight: 500;
+  color: #e6edf5;
+}
+
+/* 🔹 Main Navbar */
+.main-navbar {
+  background: transparent !important;
+  padding: 20px 0;
+}
+
+/* 👇 الشكل البيضاوي */
+.nav-container {
+  background: #ffffff;
+  border-radius: 70px; /* بيضاوي أكتر */
+  padding: 14px 35px;
+  box-shadow: 0 15px 35px rgba(11, 31, 58, 0.08);
+  border: 1px solid rgba(0, 194, 255, 0.08);
+}
+
+/* الروابط */
+.nav-links .nav-link {
+  margin: 0 12px;
+  font-weight: 600;
+  color: #0b1f3a !important; /* نفس لون التوب بار */
+  transition: 0.3s ease;
+  position: relative;
+}
+
+/* تأثير خط تحت اللينك */
+.nav-links .nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #00c2ff;
+  transition: 0.3s;
+}
+
+.nav-links .nav-link:hover {
+  color: #00c2ff !important;
+}
+
+.nav-links .nav-link:hover::after {
+  width: 100%;
+}
+
+/* زر عرض السعر */
+.price-btn {
+  background: linear-gradient(135deg, #00c2ff, #0096ff) !important;
+  border: none !important;
+  border-radius: 50px !important;
+  padding: 9px 24px !important;
+  font-weight: 600 !important;
+  color: #ffffff !important;
+  transition: 0.3s ease;
+  box-shadow: 0 6px 18px rgba(0, 150, 255, 0.3);
+}
+
+.price-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0, 150, 255, 0.4);
+}
+
+.logo img {
+  width: 100px; /* غير الرقم حسب الحجم المطلوب */
+  height: auto; /* يحافظ على نسبة الطول للعرض */
+}

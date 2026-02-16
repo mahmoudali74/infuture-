@@ -1,0 +1,110 @@
+.footer {
+  /* خلفية متدرجة متحركة */
+  background: linear-gradient(270deg, #0a1f4d, #06133a, #0a1f4d, #06133a);
+  background-size: 800% 800%;
+  color: #fff;
+  padding-top: 60px;
+  direction: rtl;
+  font-family: 'Segoe UI', sans-serif;
+  animation: gradientAnimation 20s ease infinite;
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap; /* عشان تتكيف مع الشاشات الصغيرة */
+  justify-content: space-between; /* يوزع الأعمدة بشكل متساوي */
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  gap: 40px; /* المسافة بين الأعمدة */
+}
+
+.footer-col {
+  flex: 1; /* يجعل الأعمدة متساوية العرض */
+  min-width: 200px; /* الحد الأدنى لكل عمود */
+  margin-bottom: 30px;
+}
+
+
+.footer-logo {
+  width: 170px;
+  margin-bottom: 15px;
+  transition: 0.4s ease;
+  border-radius: 12px;
+}
+
+.footer-logo:hover {
+  transform: scale(1.05);
+}
+
+.footer-text {
+  font-size: 14px;
+  line-height: 1.8;
+  opacity: 0.85;
+}
+
+.footer-title {
+  margin-bottom: 20px;
+  font-weight: bold;
+  position: relative;
+}
+
+.footer-title::after {
+  content: "";
+  width: 40px;
+  height: 3px;
+  background: #00e0ff;
+  position: absolute;
+  bottom: -8px;
+  right: 0;
+  border-radius: 10px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #ddd;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  color: #00e0ff;
+  padding-right: 5px;
+}
+
+.social-icons a {
+  font-size: 20px;
+  color: #00e0ff;
+  margin-left: 10px;
+  transition: 0.3s;
+}
+
+.social-icons a:hover {
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+.whatsapp {
+  color: #25d366;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 20px 0;
+  background: #04102b;
+  font-size: 14px;
+  margin-top: 20px;
+}
