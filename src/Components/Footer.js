@@ -55,7 +55,7 @@ export default function Footer() {
               <p className="address">
                 📍
                 <a
-                  href="https://maps.app.goo.gl/eKa1i553xi1PCfeU8?g_st=ac"
+                  href="https://maps.app.goo.gl/qnoTTviKD4Yjmwjc7"
                   target="_blank"
                   rel="noreferrer"
                   style={{ color: "inherit", textDecoration: "none" }}
