@@ -2,16 +2,10 @@ import React, { useEffect, useState, useRef } from "react";
 import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import CountUp from "react-countup";
 import {
- 
   FaMobileAlt,
- 
-
   FaGraduationCap,
   FaPalette,
   FaLaptop,
-
-
- 
 } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -103,7 +97,7 @@ function Home({ darkMode = false }) {
     "/assets/photo_5809677419944807677_y.jpg",
   ];
 
-// eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isHovering && carouselRef.current) {
@@ -196,9 +190,14 @@ function Home({ darkMode = false }) {
       {/* Hero */}
       <section className="hero" id="home">
         <h1 className="hero-title">Infuture Digital Solutions</h1>
-        <p className="fade-in-text mt-2 text-lg font-medium text-gray-700">مستقبلك يبدأ من هنا</p>
+        <p className="fade-in-text mt-2 text-lg font-medium text-gray-700">
+          مستقبلك يبدأ من هنا
+        </p>
         <p>حلول رقمية متكاملة من التدريب حتى التنفيذ والهوية البصرية.</p>
-        <Button className="glow-button" onClick={() => window.open("https://wa.me/201108293956", "_blank")}>
+        <Button
+          className="glow-button"
+          onClick={() => window.open("https://wa.me/201108293956", "_blank")}
+        >
           ابدأ مشروعك الآن
         </Button>
       </section>
@@ -221,18 +220,39 @@ function Home({ darkMode = false }) {
 
       {/* Projects */}
       <Container className="py-5" id="projects">
-        <h2 className="text-center mb-5" style={{ fontWeight: "bold", color: "#1E367E" }}>
+        <h2
+          className="text-center mb-5"
+          style={{ fontWeight: "bold", color: "#1E367E" }}
+        >
           بعض من أعمالنا ومشاريعنا
         </h2>
         <Row className="justify-content-center">
           {projects.map((p, idx) => (
-            <Col md={6} lg={3} sm={6} className="mb-4 d-flex justify-content-center" key={idx}>
-              <Card className="project-card shadow-lg h-100 text-center position-relative overflow-hidden" style={{ maxWidth: "300px" }}>
-                <img src={p.img} alt={p.title} className="img-fluid project-img" />
+            <Col
+              md={6}
+              lg={3}
+              sm={6}
+              className="mb-4 d-flex justify-content-center"
+              key={idx}
+            >
+              <Card
+                className="project-card shadow-lg h-100 text-center position-relative overflow-hidden"
+                style={{ maxWidth: "300px" }}
+              >
+                <img
+                  src={p.img}
+                  alt={p.title}
+                  className="img-fluid project-img"
+                />
                 <div className="p-3">
                   <h5>{p.title}</h5>
                   <p>{p.desc}</p>
-                  <Button variant="primary" onClick={() => openModal(p)}>اضغط للمشاهدة</Button>
+                  <Button
+                    variant="primary"
+                    onClick={() => window.open(p.link, "_blank")}
+                  >
+                    اضغط للمشاهدة
+                  </Button>
                 </div>
               </Card>
             </Col>
@@ -265,7 +285,9 @@ function Home({ darkMode = false }) {
           {stats.map((s, idx) => (
             <Col md={3} sm={6} key={idx} className="mb-4">
               <Card className="stats-card">
-                <h3><CountUp end={s.number} duration={2} /></h3>
+                <h3>
+                  <CountUp end={s.number} duration={2} />
+                </h3>
                 <p>{s.label}</p>
               </Card>
             </Col>
@@ -290,7 +312,11 @@ function Home({ darkMode = false }) {
               <Modal.Title>{selectedProject.title}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <img src={selectedProject.img} alt={selectedProject.title} className="img-fluid rounded mb-3" />
+              <img
+                src={selectedProject.img}
+                alt={selectedProject.title}
+                className="img-fluid rounded mb-3"
+              />
               <p>{selectedProject.desc}</p>
             </Modal.Body>
           </>
@@ -302,15 +328,27 @@ function Home({ darkMode = false }) {
         <Container>
           <Row className="align-items-center">
             <Col md={6} className="text-center mb-4 mb-md-0">
-              <img src="https://www.qeematech.net/wp-content/uploads/2024/04/traffic-img.png.webp" alt="Team" className="team-img img-fluid" />
+              <img
+                src="https://www.qeematech.net/wp-content/uploads/2024/04/traffic-img.png.webp"
+                alt="Team"
+                className="team-img img-fluid"
+              />
             </Col>
             <Col md={6}>
               <h2 className="team-title mb-4">من نحن</h2>
               <ul className="team-list mb-4">
-                <li>InFuture Digital Solutions شركة متخصصة في بناء وتطوير العلامات التجارية رقميًا.</li>
+                <li>
+                  InFuture Digital Solutions شركة متخصصة في بناء وتطوير العلامات
+                  التجارية رقميًا.
+                </li>
                 <li>خبرة عملية في تصميم تطبيقات iOS و Android عالية الجودة.</li>
-                <li>حلول متكاملة للمتاجر الإلكترونية وخدمات الدفع والشحن الذكي.</li>
-                <li>فريق متخصص في تطوير البرمجيات والمواقع والتطبيقات مع التركيز على تجربة المستخدم.</li>
+                <li>
+                  حلول متكاملة للمتاجر الإلكترونية وخدمات الدفع والشحن الذكي.
+                </li>
+                <li>
+                  فريق متخصص في تطوير البرمجيات والمواقع والتطبيقات مع التركيز
+                  على تجربة المستخدم.
+                </li>
                 <li>دعم مستمر بعد التنفيذ لضمان نجاح المشروع الرقمي.</li>
               </ul>
             </Col>
