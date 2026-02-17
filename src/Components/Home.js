@@ -2,18 +2,16 @@ import React, { useEffect, useState, useRef } from "react";
 import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import CountUp from "react-countup";
 import {
-  FaLaptopCode,
+ 
   FaMobileAlt,
-  FaSearch,
-  FaCloud,
-  FaRocket,
-  FaServer,
+ 
+
   FaGraduationCap,
   FaPalette,
   FaLaptop,
-  FaPhone,
-  FaWhatsapp,
-  FaFacebookF
+
+
+ 
 } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -105,7 +103,7 @@ function Home({ darkMode = false }) {
     "/assets/photo_5809677419944807677_y.jpg",
   ];
 
-  // Carousel auto scroll with pause on hover
+// eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isHovering && carouselRef.current) {
