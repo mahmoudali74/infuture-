@@ -27,48 +27,7 @@ export default function CustomNavbar() {
       {/* Top Bar */}
       <div className="top-bar py-2">
         <Container className="d-flex justify-content-between align-items-center flex-wrap">
-          
-          <div className="social-icons d-flex gap-3">
-            <a
-              href="https://www.linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaLinkedinIn size={18} />
-            </a>
-
-            <a
-              href="https://www.facebook.com/share/18MASJ2rLy/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaFacebookF size={18} />
-            </a>
-
-            <a
-              href="https://www.instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaInstagram size={18} />
-            </a>
-
-            <a
-              href="https://www.tiktok.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaTiktok size={18} />
-            </a>
-
-            <a
-              href="https://www.youtube.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaYoutube size={18} />
-            </a>
-          </div>
+   
 
           <div className="contact-info mt-2 mt-md-0">
             <a href="mailto:infuturedigitall@gmail.com">
