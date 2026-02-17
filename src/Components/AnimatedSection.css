@@ -95,3 +95,84 @@
   object-fit: cover; /* يحافظ على تناسق الصورة */
   transition: transform 0.5s ease, filter 0.5s ease;
 }
+ .gallery-section-cinema {
+      padding: 60px 0;
+      background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+    }
+
+    .gallery-section-cinema h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #fff;
+      text-shadow: 0 0 10px #4fa9e2;
+    }
+
+    .carousel-track-cinema {
+      display: flex;
+      overflow-x: auto;
+      gap: 30px;
+      padding: 20px 0;
+      scroll-behavior: smooth;
+      cursor: grab;
+    }
+
+    .carousel-track-cinema::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    .carousel-track-cinema::-webkit-scrollbar-thumb {
+      background: #4FA9E2;
+      border-radius: 5px;
+    }
+
+    .carousel-item-cinema {
+      min-width: 400px;
+      flex-shrink: 0;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .carousel-item-cinema img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .carousel-item-cinema:hover {
+      transform: scale(1.05);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+    }
+
+    .carousel-item-cinema:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Optional: responsive adjustments */
+    @media (max-width: 768px) {
+      .carousel-item-cinema { min-width: 300px; height: 200px; }
+      .carousel-item-cinema img { height: 200px; }
+    }
+
+    @media (max-width: 480px) {
+      .carousel-item-cinema { min-width: 250px; height: 150px; }
+      .carousel-item-cinema img { height: 150px; }
+    }
+
+    /* حركة Fade-in بسيطة */
+.fade-in-text {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeInUp 1s forwards;
+  animation-delay: 0.3s; /* ممكن تغيّر الوقت لكل جملة */
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
