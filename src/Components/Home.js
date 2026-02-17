@@ -1,3 +1,4 @@
+// Home.js
 import React, { useEffect, useState, useRef } from "react";
 import { Container, Row, Col, Card, Button, Modal } from "react-bootstrap";
 import CountUp from "react-countup";
@@ -22,9 +23,9 @@ function Home({ darkMode = false }) {
   }, [darkMode]);
 
   const testimonials = [
-    { name: "أحمد علي", text: "خدمات رائعة واحترافية، أنصح بشدة!" },
-    { name: "سارة محمود", text: "تصميمات مذهلة وتجربة مستخدم ممتازة." },
-    { name: "محمد فؤاد", text: "سرعة تنفيذ ودعم ممتاز طوال الوقت." },
+    { name: "أستاذ حسام", text: "خدمات رائعة واحترافية، أنصح بشدة!" },
+    { name: "أستاذ علي ", text: "تصميمات مذهلة وتجربة مستخدم ممتازة." },
+    { name: "أستاذة منى", text: "سرعة تنفيذ ودعم ممتاز طوال الوقت." },
   ];
 
   useEffect(() => {
@@ -66,19 +67,19 @@ function Home({ darkMode = false }) {
     {
       title: "مواقع الشركات",
       desc: "تصميم موقع احترافي لشركات بمظهر عصري وجذاب، مع التركيز على حلول رقمية مبتكرة لتطوير أعمالكم.",
-      img: "https://images.pexels.com/photos/3184327/pexels-photo-3184327.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      img: "/assets/Screenshot 2026-02-17 145639.png",
       link: "https://ediltechis.com/",
     },
     {
       title: "متاجر إلكترونية",
       desc: "متجر إلكتروني كامل مع خيارات دفع وشحن متقدمة، كحل رقمي شامل لدعم التجارة الإلكترونية.",
-      img: "https://images.pexels.com/photos/6476587/pexels-photo-6476587.jpeg",
+      img: "/assets/Screenshot 2026-02-17 145545.png",
       link: "https://bluelounge4catering.com/",
     },
     {
       title: "مواقع الشركات",
       desc: "تصميم موقع احترافي لشركات بمظهر عصري وجذاب.",
-      img: "https://images.pexels.com/photos/190364/pexels-photo-190364.jpeg",
+      img: "/assets/Screenshot 2026-02-17 145614.png",
       link: "https://elnbress.com/",
     },
   ];
@@ -97,7 +98,6 @@ function Home({ darkMode = false }) {
     "/assets/photo_5809677419944807677_y.jpg",
   ];
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const interval = setInterval(() => {
       if (!isHovering && carouselRef.current) {
@@ -126,7 +126,7 @@ function Home({ darkMode = false }) {
         /* Particles Background */
         .particles-bg {position: fixed; width: 100%; height: 100%; top:0; left:0; z-index:-1; overflow:hidden;}
         .particle {width:8px; height:8px; border-radius:50%; background:#4FA9E2; position:absolute; opacity:0.5; animation: float 15s linear infinite;}
-        @keyframes float {0% {transform: translateY(0) translateX(0);} 50% {transform: translateY(-50px) translateX(50px);} 100% {transform: translateY(0) translateX(0);}}
+        @keyframes float {0% {transform: translateY(0) translateX(0);} 50% {transform: translateY(-50px) translateX(50px);} 100% {transform: translateY(0) translateX(0);} }
 
         /* Hero Section */
         .hero {padding:120px 20px; text-align:center; color:#fff; position:relative; z-index:1;}
@@ -190,9 +190,7 @@ function Home({ darkMode = false }) {
       {/* Hero */}
       <section className="hero" id="home">
         <h1 className="hero-title">Infuture Digital Solutions</h1>
-        <p className="fade-in-text mt-2 text-lg font-medium text-gray-700">
-          مستقبلك يبدأ من هنا
-        </p>
+        <p>مستقبلك يبدأ من هنا</p>
         <p>حلول رقمية متكاملة من التدريب حتى التنفيذ والهوية البصرية.</p>
         <Button
           className="glow-button"
@@ -202,9 +200,8 @@ function Home({ darkMode = false }) {
         </Button>
       </section>
 
-      {/* Services */}
       <Container className="py-5" id="services">
-        <h2 className="text-center mb-5">خدماتنا</h2>
+        <h2 className="text-center mb-5 services-title">خدماتنا</h2>
         <Row>
           {services.map((s, idx) => (
             <Col md={4} sm={6} className="mb-4" key={idx}>
@@ -216,14 +213,35 @@ function Home({ darkMode = false }) {
             </Col>
           ))}
         </Row>
+
+        <style>{`
+    .services-title {
+      font-size: 3rem; /* خط كبير */
+      font-weight: 800;
+      background: linear-gradient(90deg, #1E367E, #3A5BA9, #4FA9E2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+      letter-spacing: 2px;
+      transition: transform 0.3s ease;
+    }
+    .services-title:hover {
+      transform: scale(1.05);
+    }
+
+    /* Responsive */
+    @media (max-width:768px){
+      .services-title { font-size: 2.5rem; }
+    }
+    @media (max-width:480px){
+      .services-title { font-size: 2rem; }
+    }
+  `}</style>
       </Container>
 
       {/* Projects */}
       <Container className="py-5" id="projects">
-        <h2
-          className="text-center mb-5"
-          style={{ fontWeight: "bold", color: "#1E367E" }}
-        >
+        <h2 className="text-center mb-5 projects-title">
           بعض من أعمالنا ومشاريعنا
         </h2>
         <Row className="justify-content-center">
@@ -258,6 +276,30 @@ function Home({ darkMode = false }) {
             </Col>
           ))}
         </Row>
+
+        <style>{`
+    .projects-title {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #1E367E, #3A5BA9, #4FA9E2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+      letter-spacing: 2px;
+      transition: transform 0.3s ease;
+    }
+    .projects-title:hover {
+      transform: scale(1.05);
+    }
+
+    /* Responsive */
+    @media (max-width:768px){
+      .projects-title { font-size: 2.5rem; }
+    }
+    @media (max-width:480px){
+      .projects-title { font-size: 2rem; }
+    }
+  `}</style>
       </Container>
 
       {/* Cinema Gallery */}
@@ -297,11 +339,36 @@ function Home({ darkMode = false }) {
 
       {/* Testimonials */}
       <Container className="py-5" id="testimonials">
-        <h2 className="text-center mb-4">آراء عملائنا</h2>
+        <h2 className="text-center mb-4 testimonials-title">آراء عملائنا</h2>
         <div className="testimonial">
           <p>“{testimonials[testimonialIndex].text}”</p>
           <h5>{testimonials[testimonialIndex].name}</h5>
         </div>
+
+        <style>{`
+    .testimonials-title {
+      font-size: 3rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #1E367E, #3A5BA9, #4FA9E2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+      letter-spacing: 2px;
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
+    }
+    .testimonials-title:hover {
+      transform: scale(1.05);
+      text-shadow: 2px 2px 12px rgba(0,0,0,0.4);
+    }
+
+    /* Responsive */
+    @media (max-width:768px){
+      .testimonials-title { font-size: 2.5rem; }
+    }
+    @media (max-width:480px){
+      .testimonials-title { font-size: 2rem; }
+    }
+  `}</style>
       </Container>
 
       {/* Modal */}
@@ -322,8 +389,7 @@ function Home({ darkMode = false }) {
           </>
         )}
       </Modal>
-
-      {/* About / Team */}
+      {/* About */}
       <section className="py-5 team-section" id="about">
         <Container>
           <Row className="align-items-center">
@@ -332,24 +398,66 @@ function Home({ darkMode = false }) {
                 src="https://www.qeematech.net/wp-content/uploads/2024/04/traffic-img.png.webp"
                 alt="Team"
                 className="team-img img-fluid"
+                style={{
+                  borderRadius: "10px",
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
+                }}
               />
             </Col>
             <Col md={6}>
-              <h2 className="team-title mb-4">من نحن</h2>
-              <ul className="team-list mb-4">
-                <li>
-                  InFuture Digital Solutions شركة متخصصة في بناء وتطوير العلامات
-                  التجارية رقميًا.
-                </li>
-                <li>خبرة عملية في تصميم تطبيقات iOS و Android عالية الجودة.</li>
-                <li>
-                  حلول متكاملة للمتاجر الإلكترونية وخدمات الدفع والشحن الذكي.
-                </li>
-                <li>
-                  فريق متخصص في تطوير البرمجيات والمواقع والتطبيقات مع التركيز
-                  على تجربة المستخدم.
-                </li>
-                <li>دعم مستمر بعد التنفيذ لضمان نجاح المشروع الرقمي.</li>
+              <h2
+                className="team-title mb-4"
+                style={{
+                  color: "#1E367E",
+                  fontWeight: "700",
+                  fontSize: "2.2rem",
+                  fontFamily: "'Segoe UI', sans-serif",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                }}
+              >
+                من نحن
+              </h2>
+              <ul
+                className="team-list mb-4"
+                style={{
+                  lineHeight: "1.8",
+                  color: "#333",
+                  fontSize: "1.1rem",
+                  fontFamily: "'Segoe UI', sans-serif",
+                  listStyle: "none",
+                  paddingLeft: "0",
+                }}
+              >
+                {[
+                  "InFuture Digital Solutions شركة متخصصة في بناء وتطوير العلامات التجارية رقميًا.",
+                  "خبرة عملية في تصميم تطبيقات iOS و Android عالية الجودة.",
+                  "حلول متكاملة للمتاجر الإلكترونية وخدمات الدفع والشحن الذكي.",
+                  "فريق متخصص في تطوير البرمجيات والمواقع والتطبيقات مع التركيز على تجربة المستخدم.",
+                  "دعم مستمر بعد التنفيذ لضمان نجاح المشروع الرقمي.",
+                ].map((item, idx) => (
+                  <li
+                    key={idx}
+                    style={{
+                      marginBottom: "12px",
+                      position: "relative",
+                      paddingLeft: "25px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        position: "absolute",
+                        left: 0,
+                        top: "6px",
+                        width: "10px",
+                        height: "10px",
+                        backgroundColor: "#1E367E",
+                        borderRadius: "50%",
+                      }}
+                    ></span>
+                    {item}
+                  </li>
+                ))}
               </ul>
             </Col>
           </Row>

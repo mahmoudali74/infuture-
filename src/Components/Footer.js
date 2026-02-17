@@ -128,7 +128,7 @@ export default function ElectricCircuitFooter() {
 
               <div className="contact-social">
                 <a
-                  href="https://www.facebook.com/InFutureDigitalSolutions"
+                  href="https://www.facebook.com/share/18MASJ2rLy/"
                   target="_blank"
                   rel="noreferrer"
                 >

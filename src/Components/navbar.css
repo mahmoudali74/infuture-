@@ -1,7 +1,9 @@
-/* Top Bar */
+/* navbar.css */
+
+/* ======= Top Bar ======= */
 .top-bar {
   background: #0b1f3a;
-  color: #ffffff;
+  color: #fff;
   font-size: 14px;
   padding: 8px 0;
   display: flex;
@@ -24,10 +26,19 @@
 .contact-info {
   font-weight: 500;
   color: #e6edf5;
-  margin-top: 5px; /* لتباعد على الشاشات الصغيرة */
+  margin-top: 5px;
 }
 
-/* Main Navbar */
+.contact-info a {
+  color: #e6edf5;
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  color: #00c2ff;
+}
+
+/* ======= Main Navbar ======= */
 .main-navbar {
   background: transparent !important;
   padding: 20px 0;
@@ -49,7 +60,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 10px; /* للتباعد على الشاشات الصغيرة */
+  margin-top: 0;
 }
 
 .nav-links .nav-link {
@@ -64,7 +75,7 @@
   position: absolute;
   width: 0%;
   height: 2px;
-  bottom: 0;
+  bottom: -3px;
   left: 0;
   background-color: #00c2ff;
   transition: 0.3s;
@@ -78,49 +89,37 @@
   width: 100%;
 }
 
-/* زر العرض */
-.price-btn {
-  background: linear-gradient(135deg, #00c2ff, #0096ff) !important;
-  border: none !important;
-  border-radius: 50px !important;
-  padding: 9px 24px !important;
-  font-weight: 600 !important;
-  color: #ffffff !important;
-  transition: 0.3s ease;
-  box-shadow: 0 6px 18px rgba(0, 150, 255, 0.3);
-  margin-top: 10px; /* للتباعد على الموبايل */
-}
-
-.price-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(0, 150, 255, 0.4);
-}
-
 .logo img {
   width: 100px;
   height: auto;
+  transition: 0.3s ease;
 }
 
 /* ======= Media Queries ======= */
-
-/* شاشات الموبايل الصغيرة */
 @media (max-width: 576px) {
   .nav-container {
-    padding: 12px 20px;
-    border-radius: 40px;
+    padding: 10px 15px;
+    border-radius: 35px;
+    flex-direction: column;
   }
 
   .nav-links {
     flex-direction: column;
     align-items: center;
+    margin-top: 10px;
+    width: 100%;
   }
 
   .nav-links .nav-link {
-    margin: 6px 0;
+    margin: 5px 0;
+    text-align: center;
   }
 
   .top-bar {
     font-size: 13px;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
   }
 
   .logo img {
@@ -128,14 +127,24 @@
   }
 }
 
-/* شاشات التابلت */
 @media (min-width: 577px) and (max-width: 992px) {
   .nav-container {
     padding: 12px 25px;
     border-radius: 50px;
   }
 
+  .nav-links {
+    justify-content: center;
+  }
+
   .logo img {
     width: 90px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
   }
 }
