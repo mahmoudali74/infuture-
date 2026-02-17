@@ -50,9 +50,7 @@ export default function CustomNavbar() {
       {/* Main Navbar */}
       <Navbar expand="lg" className="main-navbar">
         <Container className="nav-container d-flex align-items-center justify-content-between">
-          <Button className="price-btn" onClick={openWhatsApp}>
-            تواصل معانا
-          </Button>
+          
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

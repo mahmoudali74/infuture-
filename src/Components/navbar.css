@@ -4,6 +4,10 @@
   color: #ffffff;
   font-size: 14px;
   padding: 8px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .social-icons svg {
@@ -20,6 +24,7 @@
 .contact-info {
   font-weight: 500;
   color: #e6edf5;
+  margin-top: 5px; /* لتباعد على الشاشات الصغيرة */
 }
 
 /* Main Navbar */
@@ -34,10 +39,20 @@
   padding: 14px 35px;
   box-shadow: 0 15px 35px rgba(11, 31, 58, 0.08);
   border: 1px solid rgba(0, 194, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px; /* للتباعد على الشاشات الصغيرة */
 }
 
 .nav-links .nav-link {
-  margin: 0 12px;
   font-weight: 600;
   color: #0b1f3a !important;
   transition: 0.3s ease;
@@ -73,6 +88,7 @@
   color: #ffffff !important;
   transition: 0.3s ease;
   box-shadow: 0 6px 18px rgba(0, 150, 255, 0.3);
+  margin-top: 10px; /* للتباعد على الموبايل */
 }
 
 .price-btn:hover {
@@ -83,4 +99,43 @@
 .logo img {
   width: 100px;
   height: auto;
+}
+
+/* ======= Media Queries ======= */
+
+/* شاشات الموبايل الصغيرة */
+@media (max-width: 576px) {
+  .nav-container {
+    padding: 12px 20px;
+    border-radius: 40px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-links .nav-link {
+    margin: 6px 0;
+  }
+
+  .top-bar {
+    font-size: 13px;
+  }
+
+  .logo img {
+    width: 80px;
+  }
+}
+
+/* شاشات التابلت */
+@media (min-width: 577px) and (max-width: 992px) {
+  .nav-container {
+    padding: 12px 25px;
+    border-radius: 50px;
+  }
+
+  .logo img {
+    width: 90px;
+  }
 }
