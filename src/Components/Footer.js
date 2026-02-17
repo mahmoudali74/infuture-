@@ -1,6 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaFacebookF, FaPhone, FaWhatsapp } from "react-icons/fa";
+import { 
+  FaFacebookF, 
+  FaPhone, 
+  FaWhatsapp,
+  FaInstagram,
+  FaYoutube,
+  FaTiktok
+} from "react-icons/fa";
 import "./Footer.css";
 
 export default function ElectricCircuitFooter() {
@@ -35,7 +42,6 @@ export default function ElectricCircuitFooter() {
       ctx.fillStyle = "rgba(10,31,60,0.95)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // رسم الخطوط بين النقاط القريبة
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
         n.x += n.vx;
@@ -77,6 +83,7 @@ export default function ElectricCircuitFooter() {
 
       <Container className="pt-5 pb-5 content-container">
         <Row className="g-5 text-center text-lg-start">
+          
           {/* اللوجو والوصف */}
           <Col lg={4} md={6}>
             <div className="footer-section">
@@ -126,13 +133,22 @@ export default function ElectricCircuitFooter() {
                 </a>
               </p>
 
-              <div className="contact-social">
-                <a
-                  href="https://www.facebook.com/share/18MASJ2rLy/"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <FaFacebookF /> <span>تابعنا على فيسبوك</span>
+              {/* السوشيال ميديا */}
+              <div className="contact-social d-flex gap-3 justify-content-center justify-content-lg-start mt-3">
+                <a href="https://www.facebook.com/share/18MASJ2rLy/" target="_blank" rel="noreferrer">
+                  <FaFacebookF size={18} />
+                </a>
+
+                <a href="https://www.instagram.com" target="_blank" rel="noreferrer">
+                  <FaInstagram size={18} />
+                </a>
+
+                <a href="https://www.youtube.com" target="_blank" rel="noreferrer">
+                  <FaYoutube size={18} />
+                </a>
+
+                <a href="https://www.tiktok.com" target="_blank" rel="noreferrer">
+                  <FaTiktok size={18} />
                 </a>
               </div>
             </div>
@@ -143,27 +159,19 @@ export default function ElectricCircuitFooter() {
             <div className="footer-section">
               <h5 className="footer-title">روابط سريعة</h5>
               <ul className="footer-links">
-                <li>
-                  <a href="#home">الرئيسية</a>
-                </li>
-                <li>
-                  <a href="#about">من نحن</a>
-                </li>
-                <li>
-                  <a href="#services">خدماتنا</a>
-                </li>
-                <li>
-                  <a href="#contact">تواصل معنا</a>
-                </li>
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#about">من نحن</a></li>
+                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="#contact">تواصل معنا</a></li>
               </ul>
             </div>
           </Col>
+
         </Row>
       </Container>
 
       <div className="footer-bottom">
-        جميع الحقوق محفوظة © {new Date().getFullYear()} InFuture Digital
-        Solutions
+        جميع الحقوق محفوظة © {new Date().getFullYear()} InFuture Digital Solutions
       </div>
     </footer>
   );

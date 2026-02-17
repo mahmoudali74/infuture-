@@ -166,3 +166,97 @@
       .carousel-item-cinema { min-width: 250px; height: 150px; }
       .carousel-item-cinema img { height: 150px; }
     }
+
+
+    /* الخلفية */
+.team-section {
+  background: linear-gradient(to bottom, #f8faff, #ffffff);
+}
+
+/* الصورة */
+.team-img {
+  border-radius: 14px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  transition: 0.4s ease;
+}
+
+.team-img:hover {
+  transform: scale(1.03);
+}
+
+/* المحتوى */
+.about-content {
+  padding: 10px 15px;
+}
+
+/* العنوان */
+.team-title {
+  color: #1E367E;
+  font-weight: 800;
+  font-size: 2.4rem;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+  display: inline-block;
+}
+
+.team-title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  right: 0;
+  width: 60px;
+  height: 4px;
+  background: #1E367E;
+  border-radius: 3px;
+}
+
+/* القائمة */
+.team-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+}
+
+.team-list li {
+  position: relative;
+  padding-right: 28px;
+  margin-bottom: 15px;
+  font-size: 1.05rem;
+  color: #444;
+  line-height: 1.9;
+  transition: 0.3s ease;
+}
+
+.team-list li:hover {
+  transform: translateX(-5px);
+  color: #1E367E;
+}
+
+/* الدوت */
+.team-list .dot {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  width: 10px;
+  height: 10px;
+  background: #1E367E;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(30, 54, 126, 0.4);
+}
+
+/* ريسبونس */
+@media (max-width: 768px) {
+  .team-title {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .team-title::after {
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .team-list li {
+    font-size: 1rem;
+  }
+}

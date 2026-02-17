@@ -393,42 +393,20 @@ function Home({ darkMode = false }) {
       <section className="py-5 team-section" id="about">
         <Container>
           <Row className="align-items-center">
+            {/* الصورة */}
             <Col md={6} className="text-center mb-4 mb-md-0">
               <img
                 src="https://www.qeematech.net/wp-content/uploads/2024/04/traffic-img.png.webp"
                 alt="Team"
                 className="team-img img-fluid"
-                style={{
-                  borderRadius: "10px",
-                  boxShadow: "0 10px 30px rgba(0,0,0,0.2)",
-                }}
               />
             </Col>
-            <Col md={6}>
-              <h2
-                className="team-title mb-4"
-                style={{
-                  color: "#1E367E",
-                  fontWeight: "700",
-                  fontSize: "2.2rem",
-                  fontFamily: "'Segoe UI', sans-serif",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                }}
-              >
-                من نحن
-              </h2>
-              <ul
-                className="team-list mb-4"
-                style={{
-                  lineHeight: "1.8",
-                  color: "#333",
-                  fontSize: "1.1rem",
-                  fontFamily: "'Segoe UI', sans-serif",
-                  listStyle: "none",
-                  paddingLeft: "0",
-                }}
-              >
+
+            {/* المحتوى */}
+            <Col md={6} className="about-content">
+             
+
+              <ul className="team-list">
                 {[
                   "InFuture Digital Solutions شركة متخصصة في بناء وتطوير العلامات التجارية رقميًا.",
                   "خبرة عملية في تصميم تطبيقات iOS و Android عالية الجودة.",
@@ -436,25 +414,8 @@ function Home({ darkMode = false }) {
                   "فريق متخصص في تطوير البرمجيات والمواقع والتطبيقات مع التركيز على تجربة المستخدم.",
                   "دعم مستمر بعد التنفيذ لضمان نجاح المشروع الرقمي.",
                 ].map((item, idx) => (
-                  <li
-                    key={idx}
-                    style={{
-                      marginBottom: "12px",
-                      position: "relative",
-                      paddingLeft: "25px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        position: "absolute",
-                        left: 0,
-                        top: "6px",
-                        width: "10px",
-                        height: "10px",
-                        backgroundColor: "#1E367E",
-                        borderRadius: "50%",
-                      }}
-                    ></span>
+                  <li key={idx}>
+                    <span className="dot"></span>
                     {item}
                   </li>
                 ))}
