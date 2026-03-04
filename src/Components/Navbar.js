@@ -1,17 +1,16 @@
-// CustomNavbar.js - FULLY RESPONSIVE VERSION
+// CustomNavbar.js - FIXED MOBILE VERSION
 import React, { useEffect, useState } from "react";
-import { Navbar, Nav, Container, Button } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import { 
   FaLinkedinIn, 
   FaFacebookF, 
   FaInstagram, 
-  FaTiktok, 
-  FaYoutube,
   FaWhatsapp,
   FaPhone,
   FaEnvelope,
   FaBars,
-  FaTimes
+  FaTimes,
+  FaChevronDown
 } from "react-icons/fa";
 
 export default function CustomNavbar({ darkMode = false }) {
@@ -20,6 +19,7 @@ export default function CustomNavbar({ darkMode = false }) {
   const [activeLink, setActiveLink] = useState("#home");
 
   const phoneNumber = "201108293956";
+  const email = "infuturedigitall@gmail.com";
   const message = "مرحبا! أريد التواصل معكم.";
 
   useEffect(() => {
@@ -30,7 +30,6 @@ export default function CustomNavbar({ darkMode = false }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // منع الـ scroll لما الموبايل منيو مفتوح
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -54,8 +53,8 @@ export default function CustomNavbar({ darkMode = false }) {
       }
     } else if (href.startsWith("tel:")) {
       window.location.href = href;
-    } else {
-      window.open(href, "_blank", "noopener,noreferrer");
+    } else if (href.startsWith("mailto:")) {
+      window.location.href = href;
     }
   };
 
@@ -76,26 +75,15 @@ export default function CustomNavbar({ darkMode = false }) {
     { href: "#contact", label: "تواصل معنا" },
   ];
 
-  const socialLinks = [
-    { icon: <FaFacebookF />, href: "#", label: "Facebook" },
-    { icon: <FaInstagram />, href: "#", label: "Instagram" },
-    { icon: <FaLinkedinIn />, href: "#", label: "LinkedIn" },
-  ];
-
   return (
     <>
       <style>{`
         /* ===== TOP BAR ===== */
         .top-bar {
-          background: ${darkMode 
-            ? 'linear-gradient(90deg, #1a1a2e, #16213e)' 
-            : 'linear-gradient(90deg, #1E367E, #3A5BA9)'};
+          background: linear-gradient(90deg, #1E367E, #3A5BA9);
           color: #fff;
-          font-size: 0.85rem;
           padding: 8px 0;
-          position: relative;
-          z-index: 1001;
-          transition: all 0.3s ease;
+          font-size: 0.85rem;
         }
         
         .top-bar-content {
@@ -106,40 +94,17 @@ export default function CustomNavbar({ darkMode = false }) {
           gap: 10px;
         }
         
-        .contact-info {
+        .social-links {
           display: flex;
-          align-items: center;
-          gap: 12px;
-          flex-wrap: wrap;
-        }
-        
-        .contact-info a {
-          color: rgba(255,255,255,0.95);
-          text-decoration: none;
-          transition: all 0.3s ease;
-          display: flex;
-          align-items: center;
-          gap: 5px;
-          font-weight: 500;
-          font-size: 0.85rem;
-          white-space: nowrap;
-        }
-        
-        .contact-info a:hover {
-          color: #4FA9E2;
-        }
-        
-        .social-links-top {
-          display: flex;
-          gap: 8px;
+          gap: 10px;
           align-items: center;
         }
         
-        .social-link-top {
+        .social-link {
           width: 32px;
           height: 32px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.15);
+          background: rgba(255,255,255,0.2);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -149,133 +114,114 @@ export default function CustomNavbar({ darkMode = false }) {
           font-size: 0.9rem;
         }
         
-        .social-link-top:hover {
-          background: linear-gradient(135deg, #4FA9E2, #3A5BA9);
-          transform: translateY(-3px) scale(1.1);
+        .social-link:hover {
+          background: rgba(255,255,255,0.3);
+          transform: translateY(-2px);
+        }
+        
+        .contact-info {
+          display: flex;
+          gap: 15px;
+          align-items: center;
+        }
+        
+        .contact-item {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          color: #fff;
+          text-decoration: none;
+          font-size: 0.85rem;
+          transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+          color: #4FA9E2;
         }
         
         /* ===== MAIN NAVBAR ===== */
         .main-navbar {
+          background: ${darkMode ? '#0a0a0a' : '#ffffff'} !important;
+          box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+          padding: 12px 0 !important;
           position: sticky;
           top: 0;
           z-index: 1000;
-          transition: all 0.4s ease;
-          padding: 12px 0 !important;
-          background: ${darkMode 
-            ? 'rgba(10,10,10,0.95)' 
-            : 'rgba(255,255,255,0.95)'} !important;
-          backdrop-filter: blur(10px);
-          box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+          transition: all 0.3s ease;
         }
         
-        .navbar-container {
+        .navbar-wrapper {
           display: flex;
           justify-content: space-between;
           align-items: center;
           direction: rtl;
-          flex-wrap: nowrap;
         }
         
-        /* ===== LOGO ===== */
-        .logo-wrapper {
+        /* ===== LOGO - FIXED ===== */
+        .logo-container {
           display: flex;
           align-items: center;
           gap: 10px;
-          cursor: pointer;
-          transition: transform 0.3s ease;
           text-decoration: none;
           flex-shrink: 0;
         }
         
-        .logo-wrapper:hover {
-          transform: scale(1.02);
-        }
-        
         .logo-img {
-          height: 50px;
-          width: 50px;
+          height: 45px;
+          width: 45px;
           border-radius: 50%;
           object-fit: cover;
           border: 2px solid #4FA9E2;
-          box-shadow: 0 5px 15px rgba(79,169,226,0.3);
-          transition: all 0.3s ease;
           flex-shrink: 0;
         }
         
-        .logo-wrapper:hover .logo-img {
-          transform: scale(1.08);
-        }
-        
-        .logo-text {
+        .logo-text-wrapper {
           display: flex;
           flex-direction: column;
           line-height: 1.2;
+          white-space: nowrap;
         }
         
-        .logo-brand {
-          font-size: 1.2rem;
+        .logo-main-text {
+          font-size: 1.1rem;
           font-weight: 800;
           background: linear-gradient(135deg, #1E367E, #4FA9E2);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
-          white-space: nowrap;
+          line-height: 1.3;
         }
         
-        .logo-tagline {
+        .logo-sub-text {
           font-size: 0.7rem;
-          color: ${darkMode ? 'rgba(255,255,255,0.7)' : 'rgba(30,54,126,0.6)'};
+          color: ${darkMode ? '#888' : '#666'};
           font-weight: 500;
-          white-space: nowrap;
         }
         
         /* ===== DESKTOP NAV ===== */
         .desktop-nav {
           display: flex;
           align-items: center;
-          gap: 3px;
-          flex-wrap: nowrap;
+          gap: 5px;
         }
         
-        .nav-link-custom {
-          color: ${darkMode ? 'rgba(255,255,255,0.9)' : 'rgba(30,54,126,0.85)'} !important;
+        .nav-link-item {
+          color: ${darkMode ? '#fff' : '#1E367E'} !important;
+          text-decoration: none;
           font-weight: 600;
           font-size: 0.9rem;
-          padding: 8px 15px !important;
+          padding: 8px 16px;
           border-radius: 20px;
-          position: relative;
           transition: all 0.3s ease;
-          text-decoration: none;
-          display: inline-block;
           white-space: nowrap;
         }
         
-        .nav-link-custom::after {
-          content: '';
-          position: absolute;
-          bottom: 5px;
-          left: 50%;
-          transform: translateX(-50%) scaleX(0);
-          width: 60%;
-          height: 2px;
-          background: linear-gradient(90deg, #4FA9E2, #3A5BA9);
-          border-radius: 2px;
-          transition: transform 0.3s ease;
+        .nav-link-item:hover,
+        .nav-link-item.active {
+          background: linear-gradient(135deg, #4FA9E2, #3A5BA9);
+          color: #fff !important;
         }
         
-        .nav-link-custom:hover,
-        .nav-link-custom.active {
-          color: #4FA9E2 !important;
-          background: ${darkMode 
-            ? 'rgba(79,169,226,0.15)' 
-            : 'rgba(79,169,226,0.1)'} !important;
-        }
-        
-        .nav-link-custom:hover::after,
-        .nav-link-custom.active::after {
-          transform: translateX(-50%) scaleX(1);
-        }
-        
-        .whatsapp-btn-desktop {
+        .whatsapp-btn-nav {
           background: linear-gradient(135deg, #25D366, #128C7E) !important;
           border: none !important;
           border-radius: 25px !important;
@@ -285,79 +231,76 @@ export default function CustomNavbar({ darkMode = false }) {
           display: flex;
           align-items: center;
           gap: 6px;
-          transition: all 0.3s ease !important;
-          box-shadow: 0 5px 15px rgba(37,211,102,0.3) !important;
-          text-decoration: none !important;
           margin-right: 10px;
+          cursor: pointer;
+          transition: all 0.3s ease;
           white-space: nowrap;
           font-size: 0.85rem;
         }
         
-        .whatsapp-btn-desktop:hover {
+        .whatsapp-btn-nav:hover {
           transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(37,211,102,0.5) !important;
+          box-shadow: 0 8px 20px rgba(37,211,102,0.4);
         }
         
-        /* ===== MOBILE TOGGLE ===== */
-        .mobile-toggle {
-          border: 2px solid ${darkMode ? 'rgba(255,255,255,0.3)' : 'rgba(30,54,126,0.3)'} !important;
-          border-radius: 8px !important;
-          padding: 6px 10px !important;
-          background: transparent !important;
+        /* ===== MOBILE MENU BUTTON ===== */
+        .mobile-menu-btn {
+          background: none;
+          border: 2px solid ${darkMode ? 'rgba(255,255,255,0.3)' : 'rgba(30,54,126,0.3)'};
+          border-radius: 8px;
+          padding: 6px 10px;
+          cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          cursor: pointer;
           transition: all 0.3s ease;
-          flex-shrink: 0;
+          color: ${darkMode ? '#fff' : '#1E367E'};
           margin-right: 10px;
         }
         
-        .mobile-toggle:hover {
-          background: ${darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(30,54,126,0.1)'} !important;
-          border-color: #4FA9E2 !important;
+        .mobile-menu-btn:hover {
+          background: ${darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(30,54,126,0.1)'};
+          border-color: #4FA9E2;
         }
         
-        /* ===== MOBILE MENU OVERLAY ===== */
-        .mobile-menu-overlay {
+        /* ===== MOBILE MENU ===== */
+        .mobile-menu-backdrop {
           position: fixed;
           top: 0;
           left: 0;
           right: 0;
           bottom: 0;
           background: rgba(0,0,0,0.6);
-          z-index: 1002;
+          z-index: 1001;
           opacity: 0;
           visibility: hidden;
           transition: all 0.3s ease;
           backdrop-filter: blur(3px);
         }
         
-        .mobile-menu-overlay.show {
+        .mobile-menu-backdrop.show {
           opacity: 1;
           visibility: visible;
         }
         
-        /* ===== MOBILE MENU ===== */
-        .mobile-menu {
+        .mobile-menu-panel {
           position: fixed;
           top: 0;
           right: -100%;
           width: 85%;
-          max-width: 320px;
+          max-width: 300px;
           height: 100vh;
           background: ${darkMode 
             ? 'linear-gradient(145deg, #1a1a2e, #16213e)' 
-            : 'linear-gradient(145deg, #ffffff, #f8fbff)'};
-          z-index: 1003;
-          padding: 70px 25px 30px;
+            : 'linear-gradient(145deg, #ffffff, #f0f8ff)'};
+          z-index: 1002;
+          padding: 70px 20px 30px;
           transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
           box-shadow: -10px 0 40px rgba(0,0,0,0.3);
           overflow-y: auto;
-          overflow-x: hidden;
         }
         
-        .mobile-menu.show {
+        .mobile-menu-panel.show {
           right: 0;
         }
         
@@ -367,32 +310,32 @@ export default function CustomNavbar({ darkMode = false }) {
           left: 15px;
           background: ${darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(30,54,126,0.1)'};
           border: none;
-          font-size: 1.5rem;
-          color: ${darkMode ? '#fff' : '#1E367E'};
-          cursor: pointer;
           width: 40px;
           height: 40px;
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
+          cursor: pointer;
+          font-size: 1.3rem;
+          color: ${darkMode ? '#fff' : '#1E367E'};
           transition: all 0.3s ease;
         }
         
         .mobile-menu-close:hover {
-          background: ${darkMode ? 'rgba(255,255,255,0.2)' : 'rgba(30,54,126,0.2)'};
           transform: rotate(90deg);
+          background: ${darkMode ? 'rgba(255,255,255,0.2)' : 'rgba(30,54,126,0.2)'};
         }
         
-        .mobile-nav-links {
+        .mobile-nav-list {
           display: flex;
           flex-direction: column;
           gap: 8px;
           margin-top: 30px;
         }
         
-        .mobile-nav-link {
-          color: ${darkMode ? 'rgba(255,255,255,0.9)' : 'rgba(30,54,126,0.9)'};
+        .mobile-nav-item {
+          color: ${darkMode ? '#fff' : '#1E367E'};
           text-decoration: none;
           font-weight: 600;
           font-size: 1.05rem;
@@ -402,43 +345,35 @@ export default function CustomNavbar({ darkMode = false }) {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
         }
         
-        .mobile-nav-link:hover,
-        .mobile-nav-link.active {
+        .mobile-nav-item:hover,
+        .mobile-nav-item.active {
           background: linear-gradient(135deg, #4FA9E2, #3A5BA9);
           color: #fff;
           transform: translateX(-5px);
-          box-shadow: 0 8px 20px rgba(79,169,226,0.3);
         }
         
-        .mobile-whatsapp-btn {
+        .mobile-whatsapp {
           background: linear-gradient(135deg, #25D366, #128C7E);
           border: none;
           border-radius: 25px;
           padding: 14px 25px;
-          font-weight: 700;
           color: #fff;
+          font-weight: 700;
+          width: 100%;
+          margin-top: 25px;
+          cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 8px;
-          margin-top: 25px;
-          width: 100%;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          box-shadow: 0 8px 20px rgba(37,211,102,0.3);
           font-size: 1rem;
-        }
-        
-        .mobile-whatsapp-btn:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 12px 30px rgba(37,211,102,0.5);
+          box-shadow: 0 8px 20px rgba(37,211,102,0.3);
         }
         
         /* ===== FLOATING WHATSAPP ===== */
-        .whatsapp-float-mobile {
+        .whatsapp-float {
           position: fixed;
           bottom: 20px;
           left: 20px;
@@ -454,49 +389,25 @@ export default function CustomNavbar({ darkMode = false }) {
           box-shadow: 0 8px 25px rgba(37,211,102,0.5);
           cursor: pointer;
           z-index: 999;
-          transition: all 0.3s ease;
-          animation: pulse-whatsapp 2s infinite;
           border: 3px solid #fff;
+          animation: pulse 2s infinite;
         }
         
-        .whatsapp-float-mobile:hover {
-          transform: scale(1.1);
-          box-shadow: 0 12px 35px rgba(37,211,102,0.7);
-        }
-        
-        @keyframes pulse-whatsapp {
+        @keyframes pulse {
           0%, 100% { box-shadow: 0 8px 25px rgba(37,211,102,0.5); }
           50% { box-shadow: 0 8px 35px rgba(37,211,102,0.8); }
         }
         
-        /* ===== RESPONSIVE BREAKPOINTS ===== */
+        /* ===== RESPONSIVE FIXES ===== */
         
-        /* Large Phones & Small Tablets (768px - 991px) */
+        /* Hide on mobile */
         @media (max-width: 991px) {
-          .desktop-nav,
-          .whatsapp-btn-desktop {
+          .desktop-nav {
             display: none !important;
-          }
-          
-          .mobile-toggle {
-            display: flex !important;
-          }
-          
-          .logo-brand {
-            font-size: 1.1rem;
-          }
-          
-          .logo-tagline {
-            font-size: 0.65rem;
-          }
-          
-          .logo-img {
-            height: 45px;
-            width: 45px;
           }
         }
         
-        /* Medium Phones (481px - 768px) */
+        /* Tablet & Mobile */
         @media (max-width: 768px) {
           .top-bar {
             padding: 6px 0;
@@ -504,30 +415,16 @@ export default function CustomNavbar({ darkMode = false }) {
           
           .top-bar-content {
             justify-content: center;
-            text-align: center;
+            flex-direction: column;
+            gap: 8px;
           }
           
           .contact-info {
-            justify-content: center;
-            width: 100%;
-            order: 2;
-            margin-top: 5px;
+            gap: 12px;
           }
           
-          .social-links-top {
-            width: 100%;
-            justify-content: center;
-            order: 1;
-          }
-          
-          .contact-info a {
-            font-size: 0.8rem;
-          }
-          
-          .social-link-top {
-            width: 30px;
-            height: 30px;
-            font-size: 0.85rem;
+          .contact-item span {
+            display: none; /* Hide text, show only icons */
           }
           
           .logo-img {
@@ -535,87 +432,66 @@ export default function CustomNavbar({ darkMode = false }) {
             width: 42px;
           }
           
-          .logo-brand {
+          .logo-main-text {
             font-size: 1rem;
           }
           
-          .logo-tagline {
-            display: none;
-          }
-          
-          .mobile-menu {
-            width: 90%;
-            max-width: 300px;
-            padding: 65px 20px 25px;
-          }
-          
-          .mobile-nav-link {
-            font-size: 1rem;
-            padding: 12px 16px;
+          .logo-sub-text {
+            font-size: 0.65rem;
           }
         }
         
-        /* Small Phones (320px - 480px) */
+        /* Small Mobile */
         @media (max-width: 480px) {
           .top-bar {
-            font-size: 0.75rem;
             padding: 5px 0;
+            font-size: 0.8rem;
           }
           
-          .contact-info a span {
-            display: none;
-          }
-          
-          .contact-info a::after {
-            content: attr(data-label);
-          }
-          
-          .social-link-top {
+          .social-link {
             width: 28px;
             height: 28px;
             font-size: 0.8rem;
           }
           
+          .contact-item {
+            font-size: 0.8rem;
+          }
+          
+          .logo-container {
+            gap: 8px;
+          }
+          
           .logo-img {
             height: 40px;
             width: 40px;
-            border-width: 2px;
           }
           
-          .logo-text {
-            display: none;
+          .logo-main-text {
+            font-size: 0.95rem;
           }
           
-          .mobile-toggle {
-            padding: 5px 8px !important;
+          .logo-sub-text {
+            display: none; /* Hide subtitle on small screens */
+          }
+          
+          .mobile-menu-btn {
+            padding: 5px 8px;
             margin-right: 8px;
           }
           
-          .mobile-menu {
+          .mobile-menu-panel {
             width: 100%;
             max-width: 100%;
-            padding: 60px 15px 20px;
+            padding: 65px 15px 20px;
           }
           
-          .mobile-menu-close {
-            width: 36px;
-            height: 36px;
-            top: 12px;
-            left: 12px;
-            font-size: 1.3rem;
+          .mobile-nav-item {
+            font-size: 1rem;
+            padding: 12px 16px;
           }
           
-          .mobile-nav-link {
-            font-size: 0.95rem;
-            padding: 11px 14px;
-          }
-          
-          .mobile-whatsapp-btn {
-            padding: 12px 20px;
-            font-size: 0.95rem;
-          }
-          
-          .whatsapp-float-mobile {
+          .whatsapp-float {
             width: 50px;
             height: 50px;
             bottom: 15px;
@@ -624,16 +500,10 @@ export default function CustomNavbar({ darkMode = false }) {
           }
         }
         
-        /* Very Small Phones (320px and below) */
+        /* Very Small Screens */
         @media (max-width: 360px) {
-          .social-links-top {
-            gap: 6px;
-          }
-          
-          .social-link-top {
-            width: 26px;
-            height: 26px;
-            font-size: 0.75rem;
+          .logo-main-text {
+            font-size: 0.85rem;
           }
           
           .logo-img {
@@ -641,44 +511,21 @@ export default function CustomNavbar({ darkMode = false }) {
             width: 38px;
           }
           
-          .mobile-nav-link {
-            font-size: 0.9rem;
-            padding: 10px 12px;
+          .social-link {
+            width: 26px;
+            height: 26px;
           }
         }
         
-        /* Desktop (992px and above) */
+        /* Desktop - Show everything */
         @media (min-width: 992px) {
-          .mobile-toggle,
-          .whatsapp-float-mobile,
-          .mobile-menu-overlay {
+          .mobile-menu-btn,
+          .whatsapp-float {
             display: none !important;
           }
           
-          .logo-img {
-            height: 50px;
-            width: 50px;
-          }
-          
-          .logo-brand {
-            font-size: 1.2rem;
-          }
-          
-          .logo-tagline {
+          .logo-sub-text {
             display: block;
-          }
-        }
-        
-        /* Extra Large Screens */
-        @media (min-width: 1400px) {
-          .nav-link-custom {
-            font-size: 1rem;
-            padding: 10px 20px !important;
-          }
-          
-          .whatsapp-btn-desktop {
-            padding: 10px 25px !important;
-            font-size: 0.95rem;
           }
         }
       `}</style>
@@ -688,29 +535,25 @@ export default function CustomNavbar({ darkMode = false }) {
         <Container fluid className="px-3">
           <div className="top-bar-content">
             {/* Social Links */}
-            <div className="social-links-top">
-              {socialLinks.map((social, idx) => (
-                <a
-                  key={idx}
-                  href={social.href}
-                  className="social-link-top"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  title={social.label}
-                >
-                  {social.icon}
-                </a>
-              ))}
+            <div className="social-links">
+              <a href="#" className="social-link" aria-label="Facebook">
+                <FaFacebookF />
+              </a>
+              <a href="#" className="social-link" aria-label="Instagram">
+                <FaInstagram />
+              </a>
+              <a href="#" className="social-link" aria-label="LinkedIn">
+                <FaLinkedinIn />
+              </a>
             </div>
 
             {/* Contact Info */}
             <div className="contact-info">
-              <a href="mailto:infuturedigitall@gmail.com" data-label="Email">
+              <a href={`mailto:${email}`} className="contact-item">
                 <FaEnvelope />
                 <span>infuturedigitall@gmail.com</span>
               </a>
-              <a href="tel:+201108293956" data-label="Call">
+              <a href={`tel:+${phoneNumber}`} className="contact-item">
                 <FaPhone />
                 <span>+20 110 829 3956</span>
               </a>
@@ -720,13 +563,13 @@ export default function CustomNavbar({ darkMode = false }) {
       </div>
 
       {/* Main Navbar */}
-      <Navbar className={`main-navbar ${scrolled ? 'scrolled' : ''}`}>
-        <Container fluid className="px-3 navbar-container">
+      <nav className="main-navbar">
+        <Container fluid className="px-3 navbar-wrapper">
           
-          {/* Logo */}
+          {/* Logo - FIXED */}
           <a 
             href="#home" 
-            className="logo-wrapper"
+            className="logo-container"
             onClick={(e) => handleNavClick("#home", e)}
           >
             <img
@@ -734,9 +577,9 @@ export default function CustomNavbar({ darkMode = false }) {
               alt="InFuture Logo"
               className="logo-img"
             />
-            <div className="logo-text">
-              <span className="logo-brand">InFuture</span>
-              <span className="logo-tagline">Digital Solutions</span>
+            <div className="logo-text-wrapper">
+              <span className="logo-main-text">InFuture</span>
+              <span className="logo-sub-text">Digital Solutions</span>
             </div>
           </a>
 
@@ -746,24 +589,24 @@ export default function CustomNavbar({ darkMode = false }) {
               <a
                 key={link.href}
                 href={link.href}
-                className={`nav-link-custom ${activeLink === link.href ? 'active' : ''}`}
+                className={`nav-link-item ${activeLink === link.href ? 'active' : ''}`}
                 onClick={(e) => handleNavClick(link.href, e)}
               >
                 {link.label}
               </a>
             ))}
             
-            <Button 
-              className="whatsapp-btn-desktop"
+            <button 
+              className="whatsapp-btn-nav"
               onClick={openWhatsApp}
             >
               <FaWhatsapp /> تواصل
-            </Button>
+            </button>
           </div>
 
-          {/* Mobile Toggle Button */}
+          {/* Mobile Menu Button */}
           <button 
-            className="mobile-toggle"
+            className="mobile-menu-btn"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="القائمة"
             aria-expanded={mobileMenuOpen}
@@ -771,21 +614,16 @@ export default function CustomNavbar({ darkMode = false }) {
             {mobileMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
           </button>
         </Container>
-      </Navbar>
+      </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Backdrop */}
       <div 
-        className={`mobile-menu-overlay ${mobileMenuOpen ? 'show' : ''}`}
+        className={`mobile-menu-backdrop ${mobileMenuOpen ? 'show' : ''}`}
         onClick={() => setMobileMenuOpen(false)}
-        aria-hidden="true"
       />
 
-      {/* Mobile Menu */}
-      <div 
-        className={`mobile-menu ${mobileMenuOpen ? 'show' : ''}`}
-        role="navigation"
-        aria-label="Mobile Navigation"
-      >
+      {/* Mobile Menu Panel */}
+      <div className={`mobile-menu-panel ${mobileMenuOpen ? 'show' : ''}`}>
         <button 
           className="mobile-menu-close"
           onClick={() => setMobileMenuOpen(false)}
@@ -794,12 +632,12 @@ export default function CustomNavbar({ darkMode = false }) {
           <FaTimes />
         </button>
         
-        <div className="mobile-nav-links">
+        <div className="mobile-nav-list">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className={`mobile-nav-link ${activeLink === link.href ? 'active' : ''}`}
+              className={`mobile-nav-item ${activeLink === link.href ? 'active' : ''}`}
               onClick={(e) => handleNavClick(link.href, e)}
             >
               {link.label}
@@ -808,7 +646,7 @@ export default function CustomNavbar({ darkMode = false }) {
         </div>
         
         <button 
-          className="mobile-whatsapp-btn"
+          className="mobile-whatsapp"
           onClick={() => {
             setMobileMenuOpen(false);
             openWhatsApp();
@@ -818,13 +656,11 @@ export default function CustomNavbar({ darkMode = false }) {
         </button>
       </div>
 
-      {/* Floating WhatsApp Button - Mobile Only */}
+      {/* Floating WhatsApp */}
       <div 
-        className="whatsapp-float-mobile"
+        className="whatsapp-float"
         onClick={openWhatsApp}
         title="تواصل عبر واتساب"
-        role="button"
-        aria-label="تواصل عبر واتساب"
       >
         <FaWhatsapp />
       </div>
