@@ -1,16 +1,15 @@
-// CustomNavbar.js - FIXED MOBILE VERSION
+// CustomNavbar.js - CLEAN MOBILE VERSION
 import React, { useEffect, useState } from "react";
 import { Container, Button } from "react-bootstrap";
 import { 
-  FaLinkedinIn, 
   FaFacebookF, 
   FaInstagram, 
+  FaLinkedinIn,
   FaWhatsapp,
   FaPhone,
   FaEnvelope,
   FaBars,
-  FaTimes,
-  FaChevronDown
+  FaTimes
 } from "react-icons/fa";
 
 export default function CustomNavbar({ darkMode = false }) {
@@ -78,31 +77,31 @@ export default function CustomNavbar({ darkMode = false }) {
   return (
     <>
       <style>{`
-        /* ===== TOP BAR ===== */
+        /* ===== TOP BAR - DESKTOP ONLY ===== */
         .top-bar {
           background: linear-gradient(90deg, #1E367E, #3A5BA9);
           color: #fff;
           padding: 8px 0;
-          font-size: 0.85rem;
+          display: block; /* Hidden on mobile by default */
         }
         
         .top-bar-content {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          flex-wrap: wrap;
-          gap: 10px;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 15px;
         }
         
         .social-links {
           display: flex;
           gap: 10px;
-          align-items: center;
         }
         
         .social-link {
-          width: 32px;
-          height: 32px;
+          width: 35px;
+          height: 35px;
           border-radius: 50%;
           background: rgba(255,255,255,0.2);
           display: flex;
@@ -111,7 +110,6 @@ export default function CustomNavbar({ darkMode = false }) {
           color: #fff;
           text-decoration: none;
           transition: all 0.3s ease;
-          font-size: 0.9rem;
         }
         
         .social-link:hover {
@@ -121,79 +119,71 @@ export default function CustomNavbar({ darkMode = false }) {
         
         .contact-info {
           display: flex;
-          gap: 15px;
-          align-items: center;
+          gap: 20px;
         }
         
         .contact-item {
           display: flex;
           align-items: center;
-          gap: 5px;
+          gap: 6px;
           color: #fff;
           text-decoration: none;
-          font-size: 0.85rem;
-          transition: all 0.3s ease;
-        }
-        
-        .contact-item:hover {
-          color: #4FA9E2;
+          font-size: 0.9rem;
         }
         
         /* ===== MAIN NAVBAR ===== */
         .main-navbar {
-          background: ${darkMode ? '#0a0a0a' : '#ffffff'} !important;
-          box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+          background: #fff !important;
+          box-shadow: 0 2px 15px rgba(0,0,0,0.08);
           padding: 12px 0 !important;
           position: sticky;
           top: 0;
           z-index: 1000;
-          transition: all 0.3s ease;
         }
         
-        .navbar-wrapper {
+        .navbar-content {
           display: flex;
           justify-content: space-between;
           align-items: center;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 15px;
           direction: rtl;
         }
         
-        /* ===== LOGO - FIXED ===== */
-        .logo-container {
+        /* ===== LOGO - CLEAN ===== */
+        .logo-wrapper {
           display: flex;
           align-items: center;
           gap: 10px;
           text-decoration: none;
-          flex-shrink: 0;
         }
         
-        .logo-img {
+        .logo-icon {
           height: 45px;
           width: 45px;
           border-radius: 50%;
           object-fit: cover;
           border: 2px solid #4FA9E2;
-          flex-shrink: 0;
         }
         
-        .logo-text-wrapper {
+        .logo-text {
           display: flex;
           flex-direction: column;
           line-height: 1.2;
-          white-space: nowrap;
         }
         
-        .logo-main-text {
-          font-size: 1.1rem;
+        .logo-brand {
+          font-size: 1.3rem;
           font-weight: 800;
           background: linear-gradient(135deg, #1E367E, #4FA9E2);
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
-          line-height: 1.3;
         }
         
-        .logo-sub-text {
+        .logo-tagline {
           font-size: 0.7rem;
-          color: ${darkMode ? '#888' : '#666'};
+          color: #666;
           font-weight: 500;
         }
         
@@ -204,24 +194,23 @@ export default function CustomNavbar({ darkMode = false }) {
           gap: 5px;
         }
         
-        .nav-link-item {
-          color: ${darkMode ? '#fff' : '#1E367E'} !important;
+        .nav-link {
+          color: #1E367E !important;
           text-decoration: none;
           font-weight: 600;
-          font-size: 0.9rem;
+          font-size: 0.95rem;
           padding: 8px 16px;
           border-radius: 20px;
           transition: all 0.3s ease;
-          white-space: nowrap;
         }
         
-        .nav-link-item:hover,
-        .nav-link-item.active {
+        .nav-link:hover,
+        .nav-link.active {
           background: linear-gradient(135deg, #4FA9E2, #3A5BA9);
           color: #fff !important;
         }
         
-        .whatsapp-btn-nav {
+        .whatsapp-btn {
           background: linear-gradient(135deg, #25D366, #128C7E) !important;
           border: none !important;
           border-radius: 25px !important;
@@ -234,37 +223,34 @@ export default function CustomNavbar({ darkMode = false }) {
           margin-right: 10px;
           cursor: pointer;
           transition: all 0.3s ease;
-          white-space: nowrap;
-          font-size: 0.85rem;
         }
         
-        .whatsapp-btn-nav:hover {
+        .whatsapp-btn:hover {
           transform: translateY(-2px);
           box-shadow: 0 8px 20px rgba(37,211,102,0.4);
         }
         
         /* ===== MOBILE MENU BUTTON ===== */
-        .mobile-menu-btn {
+        .menu-toggle {
           background: none;
-          border: 2px solid ${darkMode ? 'rgba(255,255,255,0.3)' : 'rgba(30,54,126,0.3)'};
+          border: 2px solid #1E367E;
           border-radius: 8px;
-          padding: 6px 10px;
+          padding: 8px 12px;
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
+          color: #1E367E;
+          font-size: 1.2rem;
           transition: all 0.3s ease;
-          color: ${darkMode ? '#fff' : '#1E367E'};
-          margin-right: 10px;
         }
         
-        .mobile-menu-btn:hover {
-          background: ${darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(30,54,126,0.1)'};
-          border-color: #4FA9E2;
+        .menu-toggle:hover {
+          background: rgba(30,54,126,0.1);
         }
         
         /* ===== MOBILE MENU ===== */
-        .mobile-menu-backdrop {
+        .mobile-menu-overlay {
           position: fixed;
           top: 0;
           left: 0;
@@ -278,29 +264,27 @@ export default function CustomNavbar({ darkMode = false }) {
           backdrop-filter: blur(3px);
         }
         
-        .mobile-menu-backdrop.show {
+        .mobile-menu-overlay.show {
           opacity: 1;
           visibility: visible;
         }
         
-        .mobile-menu-panel {
+        .mobile-menu-container {
           position: fixed;
           top: 0;
           right: -100%;
           width: 85%;
-          max-width: 300px;
+          max-width: 320px;
           height: 100vh;
-          background: ${darkMode 
-            ? 'linear-gradient(145deg, #1a1a2e, #16213e)' 
-            : 'linear-gradient(145deg, #ffffff, #f0f8ff)'};
+          background: linear-gradient(145deg, #ffffff, #f0f8ff);
           z-index: 1002;
-          padding: 70px 20px 30px;
+          padding: 70px 25px 30px;
           transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
           box-shadow: -10px 0 40px rgba(0,0,0,0.3);
           overflow-y: auto;
         }
         
-        .mobile-menu-panel.show {
+        .mobile-menu-container.show {
           right: 0;
         }
         
@@ -308,7 +292,7 @@ export default function CustomNavbar({ darkMode = false }) {
           position: absolute;
           top: 15px;
           left: 15px;
-          background: ${darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(30,54,126,0.1)'};
+          background: rgba(30,54,126,0.1);
           border: none;
           width: 40px;
           height: 40px;
@@ -318,47 +302,45 @@ export default function CustomNavbar({ darkMode = false }) {
           justify-content: center;
           cursor: pointer;
           font-size: 1.3rem;
-          color: ${darkMode ? '#fff' : '#1E367E'};
+          color: #1E367E;
           transition: all 0.3s ease;
         }
         
         .mobile-menu-close:hover {
           transform: rotate(90deg);
-          background: ${darkMode ? 'rgba(255,255,255,0.2)' : 'rgba(30,54,126,0.2)'};
+          background: rgba(30,54,126,0.2);
         }
         
-        .mobile-nav-list {
+        .mobile-nav-items {
           display: flex;
           flex-direction: column;
-          gap: 8px;
+          gap: 10px;
           margin-top: 30px;
         }
         
-        .mobile-nav-item {
-          color: ${darkMode ? '#fff' : '#1E367E'};
+        .mobile-nav-link {
+          color: #1E367E;
           text-decoration: none;
           font-weight: 600;
-          font-size: 1.05rem;
-          padding: 14px 18px;
+          font-size: 1.1rem;
+          padding: 15px 20px;
           border-radius: 12px;
           transition: all 0.3s ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          text-align: center;
         }
         
-        .mobile-nav-item:hover,
-        .mobile-nav-item.active {
+        .mobile-nav-link:hover,
+        .mobile-nav-link.active {
           background: linear-gradient(135deg, #4FA9E2, #3A5BA9);
           color: #fff;
           transform: translateX(-5px);
         }
         
-        .mobile-whatsapp {
+        .mobile-whatsapp-btn {
           background: linear-gradient(135deg, #25D366, #128C7E);
           border: none;
           border-radius: 25px;
-          padding: 14px 25px;
+          padding: 15px 25px;
           color: #fff;
           font-weight: 700;
           width: 100%;
@@ -367,8 +349,8 @@ export default function CustomNavbar({ darkMode = false }) {
           display: flex;
           align-items: center;
           justify-content: center;
-          gap: 8px;
-          font-size: 1rem;
+          gap: 10px;
+          font-size: 1.05rem;
           box-shadow: 0 8px 20px rgba(37,211,102,0.3);
         }
         
@@ -398,97 +380,58 @@ export default function CustomNavbar({ darkMode = false }) {
           50% { box-shadow: 0 8px 35px rgba(37,211,102,0.8); }
         }
         
-        /* ===== RESPONSIVE FIXES ===== */
-        
-        /* Hide on mobile */
+        /* ===== MOBILE RESPONSIVE ===== */
         @media (max-width: 991px) {
+          .top-bar {
+            display: none !important; /* Hide top bar on mobile */
+          }
+          
           .desktop-nav {
             display: none !important;
           }
-        }
-        
-        /* Tablet & Mobile */
-        @media (max-width: 768px) {
-          .top-bar {
-            padding: 6px 0;
+          
+          .logo-tagline {
+            display: none; /* Hide tagline on mobile */
           }
           
-          .top-bar-content {
-            justify-content: center;
-            flex-direction: column;
-            gap: 8px;
+          .logo-brand {
+            font-size: 1.1rem;
           }
           
-          .contact-info {
-            gap: 12px;
-          }
-          
-          .contact-item span {
-            display: none; /* Hide text, show only icons */
-          }
-          
-          .logo-img {
+          .logo-icon {
             height: 42px;
             width: 42px;
           }
-          
-          .logo-main-text {
-            font-size: 1rem;
-          }
-          
-          .logo-sub-text {
-            font-size: 0.65rem;
-          }
         }
         
-        /* Small Mobile */
         @media (max-width: 480px) {
-          .top-bar {
-            padding: 5px 0;
-            font-size: 0.8rem;
-          }
-          
-          .social-link {
-            width: 28px;
-            height: 28px;
-            font-size: 0.8rem;
-          }
-          
-          .contact-item {
-            font-size: 0.8rem;
-          }
-          
-          .logo-container {
+          .logo-wrapper {
             gap: 8px;
           }
           
-          .logo-img {
+          .logo-brand {
+            font-size: 1rem;
+          }
+          
+          .logo-icon {
             height: 40px;
             width: 40px;
           }
           
-          .logo-main-text {
-            font-size: 0.95rem;
+          .menu-toggle {
+            padding: 6px 10px;
+            font-size: 1.1rem;
           }
           
-          .logo-sub-text {
-            display: none; /* Hide subtitle on small screens */
-          }
-          
-          .mobile-menu-btn {
-            padding: 5px 8px;
-            margin-right: 8px;
-          }
-          
-          .mobile-menu-panel {
+          .mobile-menu-container {
             width: 100%;
             max-width: 100%;
-            padding: 65px 15px 20px;
+            padding: 65px 20px 25px;
           }
           
-          .mobile-nav-item {
-            font-size: 1rem;
-            padding: 12px 16px;
+          .mobile-nav-link {
+            font-size: 1.05rem;
+            padding: 14px 18px;
           }
           
           .whatsapp-float {
@@ -500,86 +443,65 @@ export default function CustomNavbar({ darkMode = false }) {
           }
         }
         
-        /* Very Small Screens */
-        @media (max-width: 360px) {
-          .logo-main-text {
-            font-size: 0.85rem;
-          }
-          
-          .logo-img {
-            height: 38px;
-            width: 38px;
-          }
-          
-          .social-link {
-            width: 26px;
-            height: 26px;
-          }
-        }
-        
-        /* Desktop - Show everything */
+        /* ===== DESKTOP ===== */
         @media (min-width: 992px) {
-          .mobile-menu-btn,
+          .menu-toggle,
           .whatsapp-float {
             display: none !important;
           }
           
-          .logo-sub-text {
+          .logo-tagline {
             display: block;
           }
         }
       `}</style>
 
-      {/* Top Bar */}
+      {/* Top Bar - Desktop Only */}
       <div className="top-bar">
-        <Container fluid className="px-3">
-          <div className="top-bar-content">
-            {/* Social Links */}
-            <div className="social-links">
-              <a href="#" className="social-link" aria-label="Facebook">
-                <FaFacebookF />
-              </a>
-              <a href="#" className="social-link" aria-label="Instagram">
-                <FaInstagram />
-              </a>
-              <a href="#" className="social-link" aria-label="LinkedIn">
-                <FaLinkedinIn />
-              </a>
-            </div>
-
-            {/* Contact Info */}
-            <div className="contact-info">
-              <a href={`mailto:${email}`} className="contact-item">
-                <FaEnvelope />
-                <span>infuturedigitall@gmail.com</span>
-              </a>
-              <a href={`tel:+${phoneNumber}`} className="contact-item">
-                <FaPhone />
-                <span>+20 110 829 3956</span>
-              </a>
-            </div>
+        <div className="top-bar-content">
+          <div className="social-links">
+            <a href="#" className="social-link" aria-label="Facebook">
+              <FaFacebookF />
+            </a>
+            <a href="#" className="social-link" aria-label="Instagram">
+              <FaInstagram />
+            </a>
+            <a href="#" className="social-link" aria-label="LinkedIn">
+              <FaLinkedinIn />
+            </a>
           </div>
-        </Container>
+
+          <div className="contact-info">
+            <a href={`mailto:${email}`} className="contact-item">
+              <FaEnvelope />
+              <span>{email}</span>
+            </a>
+            <a href={`tel:+${phoneNumber}`} className="contact-item">
+              <FaPhone />
+              <span>+20 110 829 3956</span>
+            </a>
+          </div>
+        </div>
       </div>
 
       {/* Main Navbar */}
       <nav className="main-navbar">
-        <Container fluid className="px-3 navbar-wrapper">
+        <div className="navbar-content">
           
-          {/* Logo - FIXED */}
+          {/* Logo */}
           <a 
             href="#home" 
-            className="logo-container"
+            className="logo-wrapper"
             onClick={(e) => handleNavClick("#home", e)}
           >
             <img
               src="/assets/photo_5807827848113360265_y.jpg"
               alt="InFuture Logo"
-              className="logo-img"
+              className="logo-icon"
             />
-            <div className="logo-text-wrapper">
-              <span className="logo-main-text">InFuture</span>
-              <span className="logo-sub-text">Digital Solutions</span>
+            <div className="logo-text">
+              <span className="logo-brand">InFuture</span>
+              <span className="logo-tagline">Digital Solutions</span>
             </div>
           </a>
 
@@ -589,7 +511,7 @@ export default function CustomNavbar({ darkMode = false }) {
               <a
                 key={link.href}
                 href={link.href}
-                className={`nav-link-item ${activeLink === link.href ? 'active' : ''}`}
+                className={`nav-link ${activeLink === link.href ? 'active' : ''}`}
                 onClick={(e) => handleNavClick(link.href, e)}
               >
                 {link.label}
@@ -597,7 +519,7 @@ export default function CustomNavbar({ darkMode = false }) {
             ))}
             
             <button 
-              className="whatsapp-btn-nav"
+              className="whatsapp-btn"
               onClick={openWhatsApp}
             >
               <FaWhatsapp /> تواصل
@@ -606,38 +528,36 @@ export default function CustomNavbar({ darkMode = false }) {
 
           {/* Mobile Menu Button */}
           <button 
-            className="mobile-menu-btn"
+            className="menu-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="القائمة"
-            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
           </button>
-        </Container>
+        </div>
       </nav>
 
-      {/* Mobile Menu Backdrop */}
+      {/* Mobile Menu Overlay */}
       <div 
-        className={`mobile-menu-backdrop ${mobileMenuOpen ? 'show' : ''}`}
+        className={`mobile-menu-overlay ${mobileMenuOpen ? 'show' : ''}`}
         onClick={() => setMobileMenuOpen(false)}
       />
 
-      {/* Mobile Menu Panel */}
-      <div className={`mobile-menu-panel ${mobileMenuOpen ? 'show' : ''}`}>
+      {/* Mobile Menu */}
+      <div className={`mobile-menu-container ${mobileMenuOpen ? 'show' : ''}`}>
         <button 
           className="mobile-menu-close"
           onClick={() => setMobileMenuOpen(false)}
-          aria-label="إغلاق القائمة"
         >
           <FaTimes />
         </button>
         
-        <div className="mobile-nav-list">
+        <div className="mobile-nav-items">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className={`mobile-nav-item ${activeLink === link.href ? 'active' : ''}`}
+              className={`mobile-nav-link ${activeLink === link.href ? 'active' : ''}`}
               onClick={(e) => handleNavClick(link.href, e)}
             >
               {link.label}
@@ -646,7 +566,7 @@ export default function CustomNavbar({ darkMode = false }) {
         </div>
         
         <button 
-          className="mobile-whatsapp"
+          className="mobile-whatsapp-btn"
           onClick={() => {
             setMobileMenuOpen(false);
             openWhatsApp();
