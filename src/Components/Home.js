@@ -1450,15 +1450,6 @@ const openServiceModal = (service) => {
           </div>
         </div>
       </Col>
-      <Col md={6} className="text-center animate-on-scroll">
-        <div className="why-choose-image">
-          <img
-            src="https://www.qeematech.net/wp-content/uploads/2024/04/traffic-img.png.webp"
-            alt="Why Choose Us"
-            className="img-fluid"
-          />
-        </div>
-      </Col>
     </Row>
   </Container>
 </section>
