@@ -1,0 +1,440 @@
+.team-section {
+  direction: rtl;
+}
+
+.team-title {
+  color: #007bff; /* اللون الأزرق */
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.team-list {
+  list-style: none; /* إزالة النقط */
+  padding-left: 0;
+}
+
+.team-list li {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  padding-left: 0; /* إزالة المسافة للنقط */
+}
+.team-img {
+  animation: float 8s ease-in-out infinite alternate; /* حركة أبطأ وأكثر سلاسة */
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); } /* حركة خفيفة جدًا */
+  100% { transform: translateY(0px); }
+}
+.project-card .btn {
+  background: #4FA9E2;       /* نفس لون الكارت */
+  color: #fff;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.project-card .btn:hover {
+  background: #3A5BA9;        /* لون أغمق على hover */
+  box-shadow: 0 0 15px #4FA9E2, 0 0 25px #3A5BA9;
+  transform: scale(1.05);
+  color: #fff;
+}
+
+
+.project-img-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.project-card:hover .project-img {
+  transform: scale(1.1);
+  filter: brightness(0.8);
+}
+
+.project-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(0deg, rgba(30,54,126,0.9), rgba(30,54,126,0));
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.project-card:hover .project-overlay {
+  opacity: 1;
+}
+
+.overlay-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.overlay-desc {
+  font-size: 0.9rem;
+}
+.project-img-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 250px; /* ارتفاع ثابت لكل الصور */
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* يحافظ على تناسق الصورة */
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+ .gallery-section-cinema {
+      padding: 60px 0;
+      background: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+    }
+
+    .gallery-section-cinema h2 {
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #fff;
+      text-shadow: 0 0 10px #4fa9e2;
+    }
+
+    .carousel-track-cinema {
+      display: flex;
+      overflow-x: auto;
+      gap: 30px;
+      padding: 20px 0;
+      scroll-behavior: smooth;
+      cursor: grab;
+    }
+
+    .carousel-track-cinema::-webkit-scrollbar {
+      height: 10px;
+    }
+
+    .carousel-track-cinema::-webkit-scrollbar-thumb {
+      background: #4FA9E2;
+      border-radius: 5px;
+    }
+
+    .carousel-item-cinema {
+      min-width: 400px;
+      flex-shrink: 0;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .carousel-item-cinema img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .carousel-item-cinema:hover {
+      transform: scale(1.05);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.8);
+    }
+
+    .carousel-item-cinema:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Optional: responsive adjustments */
+    @media (max-width: 768px) {
+      .carousel-item-cinema { min-width: 300px; height: 200px; }
+      .carousel-item-cinema img { height: 200px; }
+    }
+
+    @media (max-width: 480px) {
+      .carousel-item-cinema { min-width: 250px; height: 150px; }
+      .carousel-item-cinema img { height: 150px; }
+    }
+
+
+    /* الخلفية */
+.team-section {
+  background: linear-gradient(to bottom, #f8faff, #ffffff);
+}
+
+/* الصورة */
+.team-img {
+  border-radius: 14px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  transition: 0.4s ease;
+}
+
+.team-img:hover {
+  transform: scale(1.03);
+}
+
+/* المحتوى */
+.about-content {
+  padding: 10px 15px;
+}
+
+/* العنوان */
+.team-title {
+  color: #1E367E;
+  font-weight: 800;
+  font-size: 2.4rem;
+  font-family: 'Segoe UI', sans-serif;
+  position: relative;
+  display: inline-block;
+}
+
+.team-title::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  right: 0;
+  width: 60px;
+  height: 4px;
+  background: #1E367E;
+  border-radius: 3px;
+}
+
+/* القائمة */
+.team-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+}
+
+.team-list li {
+  position: relative;
+  padding-right: 28px;
+  margin-bottom: 15px;
+  font-size: 1.05rem;
+  color: #444;
+  line-height: 1.9;
+  transition: 0.3s ease;
+}
+
+.team-list li:hover {
+  transform: translateX(-5px);
+  color: #1E367E;
+}
+
+/* الدوت */
+.team-list .dot {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  width: 10px;
+  height: 10px;
+  background: #1E367E;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(30, 54, 126, 0.4);
+}
+
+/* ريسبونس */
+@media (max-width: 768px) {
+  .team-title {
+    font-size: 1.8rem;
+    text-align: center;
+  }
+
+  .team-title::after {
+    right: 50%;
+    transform: translateX(50%);
+  }
+
+  .team-list li {
+    font-size: 1rem;
+  }
+}
+/* ===== HERO BADGE - "مستقبلك يبدأ من هنا" ===== */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  padding: 8px 20px;
+  margin: 0 auto 25px;
+  animation: fadeInUp 0.8s ease 0.2s both, float 3s ease-in-out infinite;
+}
+
+.badge-icon {
+  font-size: 1.3rem;
+  animation: bounce 2s infinite;
+}
+
+.badge-text {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.badge-sparkle {
+  font-size: 1.2rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* ===== HERO BUTTONS ===== */
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+  animation: fadeInUp 1s ease 0.5s both;
+}
+
+.glow-button {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background: linear-gradient(135deg, #fff, #f0f8ff);
+  color: #1E367E; 
+  border: none; 
+  border-radius: 50px; 
+  padding: 15px 35px; 
+  font-weight: 700; 
+  font-size: 1.1rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  position: relative; 
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.glow-button::before {
+  content: ''; 
+  position: absolute; 
+  top: 0; 
+  left: -100%;
+  width: 100%; 
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: left 0.5s;
+}
+
+.glow-button:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 20px 60px rgba(79,169,226,0.6), 0 0 0 3px rgba(255,255,255,0.3);
+}
+
+.glow-button:hover::before { 
+  left: 100%; 
+}
+
+.secondary-button {
+  background: transparent !important;
+  color: #fff !important;
+  border: 2px solid rgba(255,255,255,0.6) !important;
+  border-radius: 50px !important;
+  padding: 14px 30px !important;
+  font-weight: 600 !important;
+  font-size: 1.05rem !important;
+  transition: all 0.3s ease !important;
+  display: flex;
+  align-items: center;
+}
+
+.secondary-button:hover {
+  background: rgba(255,255,255,0.15) !important;
+  border-color: #fff !important;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* ===== SCROLL INDICATOR ===== */
+.scroll-indicator {
+  position: absolute; 
+  bottom: 30px; 
+  left: 50%; 
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: bounce 2s infinite; 
+  cursor: pointer;
+  color: rgba(255,255,255,0.85);
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.scroll-indicator:hover {
+  color: #fff;
+  transform: translateX(-50%) translateY(-5px);
+}
+
+.scroll-text {
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.scroll-arrow {
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .hero-badge {
+    padding: 6px 15px;
+    margin-bottom: 20px;
+  }
+  .badge-text {
+    font-size: 1rem;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .glow-button,
+  .secondary-button {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+  .scroll-text {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-badge {
+    gap: 6px;
+    padding: 5px 12px;
+  }
+  .badge-icon,
+  .badge-sparkle {
+    font-size: 1rem;
+  }
+  .badge-text {
+    font-size: 0.95rem;
+  }
+}

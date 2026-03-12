@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap');
+
+.electric-footer {
+  font-family: 'Cairo', sans-serif;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.electric-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.content-container {
+  position: relative;
+  z-index: 2;
+}
+
+.footer-section {
+  color: #ffffff;
+  padding: 20px 25px;
+}
+
+.footer-logo {
+  width: 140px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(0,200,255,0.3);
+  padding: 5px;
+  transition: transform 0.3s;
+}
+.footer-logo:hover { transform: scale(1.1); }
+
+.footer-text {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: #ffffff;
+}
+
+.footer-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* روابط الفوتر بألوان الفيسبوك */
+.footer-links li a,
+.footer-link,
+.address,
+.contact-social a,
+.whatsapp {
+  font-size: 1.1rem;
+  color: #1877F2; /* لون أزرق فيسبوك */
+  text-shadow: 0 0 3px rgba(24,119,242,0.5);
+  transition: 0.3s;
+}
+
+/* روابط وأرقام الفوتر باللون الأبيض الفاتح */
+.footer-links li a,
+.footer-link,
+.address a,
+.contact-social a,
+.whatsapp {
+  font-size: 1.1rem;
+  color: #e0f7ff; /* أبيض فاتح متناسق مع الأزرق */
+  text-shadow: 0 0 3px rgba(224,247,255,0.5);
+  transition: 0.3s;
+}
+
+.footer-links li a:hover,
+.footer-link:hover,
+.address a:hover,
+.contact-social a:hover,
+.whatsapp:hover {
+  color: #ffffff;
+  transform: scale(1.1);
+  text-shadow: 0 0 10px #e0f7ff, 0 0 20px #e0f7ff;
+}
+
+
+.footer-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 0;
+  background: rgba(10,31,60,0.95);
+  text-align: center;
+  z-index: 2;
+  position: relative;
+  margin-top: 30px;
+  font-size: 1.05rem;
+}
+
+.contact-social a, .whatsapp {
+  transition: 0.3s;
+}
+
+@media (max-width: 992px) {
+  .content-container .row { row-gap: 45px; }
+}
+
+@media (max-width: 768px) {
+  .footer-bottom { flex-direction: column; gap: 12px; }
+  .footer-section { padding: 12px 0; }
+}
+.footer-section p,
+.footer-section a,
+.footer-section .contact-social a,
+.footer-section .whatsapp,
+.footer-section .address a {
+  color: #ffffff; /* أبيض كامل */
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-section a:hover,
+.footer-section .contact-social a:hover,
+.footer-section .whatsapp:hover,
+.footer-section .address a:hover {
+  color: #e0f7ff; /* أبيض فاتح عند التحويم */
+  text-shadow: 0 0 5px #e0f7ff;
+}
