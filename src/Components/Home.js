@@ -90,7 +90,7 @@ function Home({ darkMode = false }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Intersection Observer for fade-in animations (مبسط)
+  // Intersection Observer for fade-in animations
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
       (entries) => {
@@ -110,7 +110,7 @@ function Home({ darkMode = false }) {
 
   // Dark mode body styles
   useEffect(() => {
-    document.body.style.backgroundColor = darkMode ? "#0a0a0a" : "#f0f8ff";
+    document.body.style.backgroundColor = darkMode ? "#0a0a0a" : "#f8fafc";
     document.body.style.color = darkMode ? "#fff" : "#000";
     document.body.style.transition = "all 0.3s ease";
   }, [darkMode]);
@@ -122,9 +122,6 @@ function Home({ darkMode = false }) {
     }, 4000);
     return () => clearInterval(interval);
   }, []);
-
-  // Auto scroll gallery (مُلغى لتخفيف الحمل)
-  // useEffect(() => { ... }, [isHovering]); // تم حذفه
 
   const testimonials = [
     {
@@ -319,914 +316,409 @@ function Home({ darkMode = false }) {
   return (
     <>
       <style>{`
-        /* ===== GLOBAL STYLES ===== */
+        /* ===== GLOBAL ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           overflow-x: hidden;
           scroll-behavior: smooth;
+          background: ${darkMode ? "#0a0a0a" : "#f8fafc"};
+          color: ${darkMode ? "#fff" : "#1a1a2e"};
         }
         
         /* ===== SIMPLE ANIMATIONS ===== */
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
+        .animate-on-scroll { opacity: 0; transition: opacity 0.4s ease; }
+        .animate-on-scroll.animate-in { opacity: 1; }
         
-        /* ===== FADE IN ON SCROLL ===== */
-        .animate-on-scroll {
-          opacity: 0;
-          transition: opacity 0.4s ease;
-        }
-        .animate-on-scroll.animate-in {
-          opacity: 1;
-        }
-        
-        /* ===== HERO SECTION - ثابت بدون أنيميشن ثقيل ===== */
+        /* ===== HERO ===== */
         .hero {
-          min-height: 100vh;
-          padding: 80px 20px;
+          min-height: 90vh;
+          padding: 60px 20px;
           text-align: center;
           color: #fff;
-          position: relative;
-          z-index: 1;
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          background: linear-gradient(135deg, #1E367E, #3A5BA9, #4FA9E2);
-          overflow: hidden;
+          background: linear-gradient(135deg, #2563eb, #3b82f6);
         }
-        
-        .hero-content {
-          position: relative;
-          z-index: 2;
-          max-width: 900px;
-        }
-        
-        .hero-title {
-          font-size: 3rem;
-          font-weight: 800;
-          margin-bottom: 20px;
-          color: #fff;
-        }
-        
-        .hero-subtitle {
-          font-size: 1.6rem;
-          margin: 15px 0;
-          color: rgba(255,255,255,0.95);
-          min-height: 50px;
-        }
-        
-        .typed-cursor {
-          border-right: 2px solid #fff;
-          animation: blink 0.7s infinite;
-          display: inline-block;
-          margin-left: 5px;
-        }
-        
-        @keyframes blink {
-          50% { border-color: transparent; }
-        }
-        
-        .hero-desc {
-          font-size: 1.1rem;
-          margin: 25px 0 40px;
-          color: rgba(255,255,255,0.9);
-          line-height: 1.7;
-        }
-        
+        .hero-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 15px; }
+        .hero-subtitle { font-size: 1.4rem; margin: 10px 0; color: rgba(255,255,255,0.95); min-height: 45px; }
+        .typed-cursor { border-right: 2px solid #fff; animation: blink 0.7s infinite; display: inline-block; margin-left: 4px; }
+        @keyframes blink { 50% { border-color: transparent; } }
+        .hero-desc { font-size: 1rem; margin: 20px 0 30px; color: rgba(255,255,255,0.9); line-height: 1.6; max-width: 600px; }
         .glow-button {
-          transition: all 0.3s ease;
-          background: #fff;
-          color: #1E367E;
-          border: none;
-          border-radius: 50px;
-          padding: 14px 35px;
-          font-weight: 700;
-          font-size: 1.1rem;
-          box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+          background: #fff; color: #2563eb; border: none; border-radius: 40px;
+          padding: 12px 30px; font-weight: 600; font-size: 1rem;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.15); transition: transform 0.2s;
         }
-        
-        .glow-button:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        
+        .glow-button:hover { transform: translateY(-2px); }
         .scroll-indicator {
-          position: absolute;
-          bottom: 30px;
-          left: 50%;
-          transform: translateX(-50%);
-          cursor: pointer;
-          color: rgba(255,255,255,0.8);
-          font-size: 1.5rem;
+          position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%);
+          cursor: pointer; color: rgba(255,255,255,0.8); font-size: 1.3rem;
         }
         
-        /* ===== NAVIGATION DOTS ===== */
+        /* ===== NAV DOTS ===== */
         .nav-dots {
-          position: fixed;
-          right: 20px;
-          top: 50%;
-          transform: translateY(-50%);
-          z-index: 1000;
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
+          position: fixed; right: 15px; top: 50%; transform: translateY(-50%);
+          z-index: 1000; display: flex; flex-direction: column; gap: 10px;
         }
-        
         .nav-dot {
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          background: rgba(255,255,255,0.5);
-          border: 2px solid #fff;
-          cursor: pointer;
-          transition: all 0.2s ease;
+          width: 9px; height: 9px; border-radius: 50%;
+          background: rgba(255,255,255,0.5); border: 2px solid #fff;
+          cursor: pointer; transition: all 0.2s;
         }
-        
-        .nav-dot.active {
-          background: #fff;
-          transform: scale(1.2);
-        }
+        .nav-dot.active { background: #fff; transform: scale(1.15); }
         
         /* ===== SECTIONS ===== */
         .section-title {
-          font-size: 2.5rem;
-          font-weight: 800;
-          margin-bottom: 15px;
-          color: ${darkMode ? '#fff' : '#1E367E'};
-          text-align: center;
+          font-size: 2rem; font-weight: 700; margin-bottom: 10px;
+          color: ${darkMode ? '#fff' : '#1a1a2e'}; text-align: center;
         }
-        
         .section-subtitle {
           color: ${darkMode ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.6)'};
+          font-size: 1rem; margin-bottom: 35px; max-width: 550px;
+          margin-left: auto; margin-right: auto; text-align: center;
+        }
+        
+        /* ===== ABOUT SECTION - SIMPLE & CLEAN ===== */
+        .about-section {
+          padding: 70px 0;
+          background: ${darkMode ? '#0f172a' : '#ffffff'};
+        }
+        .about-container {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 40px;
+        }
+        .about-text {
+          flex: 1;
+          min-width: 300px;
+        }
+        .about-title {
+          font-size: 1.8rem;
+          font-weight: 700;
+          margin-bottom: 20px;
+          color: ${darkMode ? '#fff' : '#1a1a2e'};
+          position: relative;
+          padding-bottom: 12px;
+        }
+        .about-title::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 50px;
+          height: 3px;
+          background: #3b82f6;
+          border-radius: 2px;
+        }
+        .about-desc {
+          font-size: 1rem;
+          line-height: 1.8;
+          color: ${darkMode ? 'rgba(255,255,255,0.85)' : 'rgba(0,0,0,0.75)'};
+          margin-bottom: 15px;
+        }
+        .about-highlights {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-top: 25px;
+        }
+        .highlight-item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 0.95rem;
+          color: ${darkMode ? '#fff' : '#1a1a2e'};
+        }
+        .highlight-icon {
+          color: #3b82f6;
           font-size: 1.1rem;
-          margin-bottom: 40px;
-          max-width: 600px;
-          margin-left: auto;
-          margin-right: auto;
-          text-align: center;
+          flex-shrink: 0;
+        }
+        .about-image {
+          flex: 1;
+          min-width: 300px;
+          display: flex;
+          justify-content: center;
+        }
+        .about-image img {
+          max-width: 100%;
+          border-radius: 12px;
+          box-shadow: 0 8px 25px rgba(0,0,0,0.08);
         }
         
         /* ===== SERVICES ===== */
         .service-card {
-          border-radius: 16px;
+          border-radius: 12px;
           overflow: hidden;
-          border: none;
-          transition: transform 0.2s ease;
+          border: 1px solid ${darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'};
+          transition: transform 0.2s;
           text-align: center;
-          box-shadow: 0 5px 20px rgba(0,0,0,0.1);
           height: 100%;
-          background: ${darkMode ? '#1a1a2e' : '#fff'};
+          background: ${darkMode ? '#1e293b' : '#fff'};
           cursor: pointer;
         }
-        
-        .service-card:hover {
-          transform: translateY(-5px);
-        }
-        
-        .service-image-wrapper {
-          height: 200px;
-          overflow: hidden;
-        }
-        
-        .service-card img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: transform 0.3s ease;
-        }
-        
-        .service-card:hover img {
-          transform: scale(1.05);
-        }
-        
-        .service-content {
-          padding: 20px 15px;
-          background: ${darkMode ? '#16213e' : '#fff'};
-          min-height: 100px;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        }
-        
+        .service-card:hover { transform: translateY(-4px); }
+        .service-image-wrapper { height: 180px; overflow: hidden; }
+        .service-card img { width: 100%; height: 100%; object-fit: cover; }
+        .service-content { padding: 18px 15px; }
         .service-card h5 {
-          font-weight: 700;
-          margin-bottom: 8px;
-          font-size: 1.1rem;
-          color: ${darkMode ? '#fff' : '#1E367E'};
+          font-weight: 600; margin-bottom: 6px; font-size: 1rem;
+          color: ${darkMode ? '#fff' : '#1a1a2e'};
         }
-        
         .service-card p {
-          opacity: 0.85;
-          line-height: 1.6;
-          font-size: 0.9rem;
-          color: ${darkMode ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.7)'};
-          margin-bottom: 0;
-        }
-        
-        /* ===== PROJECTS ===== */
-        .project-card {
-          border-radius: 16px;
-          overflow: hidden;
-          border: none;
-          transition: transform 0.2s ease;
-          background: ${darkMode ? '#1a1a2e' : '#fff'};
-          box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-        
-        .project-card:hover {
-          transform: translateY(-5px);
-        }
-        
-        .project-img {
-          height: 180px;
-          object-fit: cover;
-          width: 100%;
-        }
-        
-        .project-tags {
-          display: flex;
-          gap: 6px;
-          flex-wrap: wrap;
-          margin: 12px 0;
-          justify-content: center;
-        }
-        
-        .project-tag {
-          font-size: 0.7rem;
-          padding: 4px 10px;
-          border-radius: 15px;
-          background: ${darkMode ? '#3A5BA9' : '#4FA9E2'};
-          color: #fff;
-          font-weight: 500;
-        }
-        
-        .project-btn {
-          background: linear-gradient(135deg, #1E367E, #3A5BA9);
-          border: none;
-          border-radius: 20px;
-          padding: 8px 20px;
-          font-weight: 600;
-          transition: all 0.2s ease;
-        }
-        
-        .project-btn:hover {
-          transform: translateY(-2px);
-        }
-        
-        /* ===== PROCESS SECTION ===== */
-        .process-section {
-          padding: 80px 0;
-          background: ${darkMode ? '#121212' : '#f0f8ff'};
-        }
-        
-        .process-step {
-          text-align: center;
-          padding: 25px 15px;
-        }
-        
-        .step-number {
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #4FA9E2, #3A5BA9);
-          color: #fff;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.3rem;
-          font-weight: 800;
-          margin: 0 auto 15px;
-        }
-        
-        .step-icon {
-          font-size: 1.5rem;
-          color: #4FA9E2;
-          margin-bottom: 12px;
-          display: block;
-        }
-        
-        .process-step h5 {
-          font-weight: 700;
-          margin-bottom: 8px;
-        }
-        
-        .process-step p {
-          opacity: 0.8;
-          font-size: 0.9rem;
-          line-height: 1.5;
-        }
-        
-        /* ===== GALLERY ===== */
-        .gallery-section-cinema {
-          padding: 60px 0;
-          background: linear-gradient(135deg, #1E367E, #3A5BA9, #4FA9E2);
-          position: relative;
-          overflow: hidden;
-        }
-        
-        .gallery-section-cinema h2 {
-          font-size: 2.3rem;
-          margin-bottom: 40px;
-          color: #fff;
-          text-align: center;
-        }
-        
-        .carousel-track-cinema {
-          display: flex;
-          gap: 20px;
-          padding: 20px 10px;
-          overflow-x: auto;
-          scroll-behavior: smooth;
-          scroll-snap-type: x mandatory;
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        
-        .carousel-track-cinema::-webkit-scrollbar {
-          display: none;
-        }
-        
-        .carousel-item-cinema {
-          min-width: 300px;
-          flex-shrink: 0;
-          border-radius: 16px;
-          overflow: hidden;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-          scroll-snap-align: start;
-          background: ${darkMode ? '#1a1a2e' : '#fff'};
-        }
-        
-        .carousel-item-cinema img {
-          width: 100%;
-          height: 200px;
-          object-fit: cover;
-        }
-        
-        .gallery-overlay {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          padding: 15px;
-          background: linear-gradient(transparent, rgba(0,0,0,0.7));
-          color: #fff;
-        }
-        
-        /* ===== STATS ===== */
-        .stats-card {
-          border-radius: 20px;
-          padding: 30px 20px;
-          background: linear-gradient(145deg, #1E367E, #3A5BA9, #4FA9E2);
-          color: #fff;
-          text-align: center;
-          border: none;
-          box-shadow: 0 10px 30px rgba(30,54,126,0.2);
-        }
-        
-        .stats-card h3 {
-          font-size: 2.5rem;
-          font-weight: 800;
-          margin-bottom: 5px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-        }
-        
-        .stats-card p {
-          font-size: 1rem;
-          opacity: 0.95;
-          font-weight: 500;
-        }
-        
-        /* ===== TESTIMONIALS ===== */
-        .testimonial {
-          background: ${darkMode ? '#1a1a2e' : '#fff'};
-          color: ${darkMode ? '#fff' : '#1E367E'};
-          border-radius: 20px;
-          padding: 35px;
-          text-align: center;
-          max-width: 650px;
-          margin: 0 auto;
-          box-shadow: 0 10px 40px rgba(30,54,126,0.1);
-        }
-        
-        .testimonial p {
-          font-size: 1.2rem;
-          font-style: italic;
-          line-height: 1.7;
-          margin: 15px 0 20px;
-        }
-        
-        .testimonial-author {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 12px;
-          margin-top: 15px;
-        }
-        
-        .testimonial-avatar {
-          width: 50px;
-          height: 50px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, #4FA9E2, #3A5BA9);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.5rem;
-          color: #fff;
-        }
-        
-        .testimonial-info h5 {
-          font-weight: 700;
-          margin-bottom: 2px;
-          font-size: 1.1rem;
-        }
-        
-        .testimonial-info span {
-          opacity: 0.7;
-          font-size: 0.9rem;
-        }
-        
-        .testimonial-rating {
-          color: #FFD700;
-          margin: 10px 0;
-          font-size: 1rem;
-        }
-        
-        .testimonial-dots {
-          display: flex;
-          justify-content: center;
-          gap: 8px;
-          margin-top: 20px;
-        }
-        
-        .testimonial-dot {
-          width: 10px;
-          height: 10px;
-          border-radius: 50%;
-          background: ${darkMode ? 'rgba(255,255,255,0.3)' : 'rgba(30,54,126,0.2)'};
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-        
-        .testimonial-dot.active {
-          background: linear-gradient(135deg, #4FA9E2, #3A5BA9);
-          transform: scale(1.2);
-        }
-        
-        /* ===== WHY CHOOSE US ===== */
-        .why-choose-section {
-          padding: 80px 0;
-          background: ${darkMode ? '#121212' : '#f0f8ff'};
-        }
-        
-        .why-choose-content {
-          padding-right: 20px;
-        }
-        
-        .why-choose-title {
-          font-size: 2.3rem;
-          font-weight: 800;
-          margin-bottom: 25px;
-          color: ${darkMode ? '#fff' : '#1E367E'};
-          text-align: right;
-        }
-        
-        .why-choose-text {
-          font-size: 1.05rem;
-          line-height: 1.9;
-          color: ${darkMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)'};
-          margin-bottom: 15px;
-          text-align: right;
-        }
-        
-        .why-choose-text strong {
-          color: #3A5BA9;
-          font-weight: 700;
-        }
-        
-        .why-choose-features {
-          display: flex;
-          flex-direction: column;
-          gap: 12px;
-        }
-        
-        .feature-item {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          font-size: 1rem;
-          color: ${darkMode ? '#fff' : '#1E367E'};
-          font-weight: 600;
-        }
-        
-        .feature-icon {
-          font-size: 1.3rem;
-          color: #4FA9E2;
-          flex-shrink: 0;
-        }
-        
-        .why-choose-image img {
-          border-radius: 20px;
-          box-shadow: 0 15px 40px rgba(30,54,126,0.15);
-          max-width: 100%;
-        }
-        
-        /* ===== CONTACT SECTION ===== */
-        .contact-section {
-          padding: 80px 0;
-          background: linear-gradient(135deg, #1E367E, #3A5BA9, #4FA9E2);
-        }
-        
-        .contact-section h2 {
-          color: #fff;
-        }
-        
-        .contact-section .section-subtitle {
-          color: rgba(255,255,255,0.9);
-        }
-        
-        .contact-card {
-          background: ${darkMode ? 'rgba(26,26,46,0.95)' : 'rgba(255,255,255,0.95)'};
-          border-radius: 20px;
-          padding: 35px;
-          box-shadow: 0 15px 50px rgba(0,0,0,0.2);
-        }
-        
-        .contact-info-item {
-          display: flex;
-          align-items: flex-start;
-          gap: 12px;
-          padding: 15px 0;
-          border-bottom: 1px solid ${darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'};
-        }
-        
-        .contact-info-item:last-child {
-          border-bottom: none;
-        }
-        
-        .contact-icon {
-          width: 45px;
-          height: 45px;
-          border-radius: 12px;
-          background: linear-gradient(135deg, #4FA9E2, #3A5BA9);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #fff;
-          font-size: 1.2rem;
-          flex-shrink: 0;
-        }
-        
-        .contact-text h5 {
-          font-weight: 700;
-          margin-bottom: 3px;
-          font-size: 1rem;
-        }
-        
-        .contact-text p,
-        .contact-text a {
-          opacity: 0.85;
-          text-decoration: none;
-          color: ${darkMode ? '#fff' : '#1E367E'};
-          font-size: 0.95rem;
-        }
-        
-        .contact-form .form-control {
-          border-radius: 12px;
-          padding: 12px 18px;
-          border: 2px solid ${darkMode ? 'rgba(255,255,255,0.2)' : 'rgba(30,54,126,0.15)'};
-          background: ${darkMode ? '#1a1a2e' : '#f8fbff'};
-          color: ${darkMode ? '#fff' : '#000'};
-          margin-bottom: 15px;
-          font-size: 0.95rem;
-        }
-        
-        .contact-form .form-control:focus {
-          border-color: #4FA9E2;
-          box-shadow: 0 0 0 3px rgba(79,169,226,0.15);
-          background: ${darkMode ? '#16213e' : '#fff'};
-        }
-        
-        .submit-btn {
-          background: linear-gradient(135deg, #1E367E, #3A5BA9);
-          border: none;
-          border-radius: 25px;
-          padding: 14px 40px;
-          font-weight: 700;
-          font-size: 1rem;
-          color: #fff;
-          transition: all 0.2s ease;
-          width: 100%;
-        }
-        
-        .submit-btn:hover {
-          transform: translateY(-2px);
-        }
-        
-        .form-success {
-          text-align: center;
-          padding: 25px;
-          color: #fff;
-          background: linear-gradient(135deg, #2ecc71, #27ae60);
-          border-radius: 16px;
-        }
-        
-        .form-success svg {
-          font-size: 2.5rem;
-          margin-bottom: 12px;
-        }
-        
-        /* ===== FOOTER ===== */
-        .footer {
-          background: ${darkMode ? '#0a0a0a' : '#1E367E'};
-          color: rgba(255,255,255,0.9);
-          padding: 50px 0 25px;
-        }
-        
-        .footer-logo {
-          font-size: 1.6rem;
-          font-weight: 800;
-          margin-bottom: 15px;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-        }
-        
-        .footer-desc {
-          opacity: 0.85;
-          line-height: 1.7;
-          margin-bottom: 20px;
-          font-size: 0.95rem;
-        }
-        
-        .social-links {
-          display: flex;
-          gap: 10px;
-        }
-        
-        .social-link {
-          width: 40px;
-          height: 40px;
-          border-radius: 12px;
-          background: rgba(255,255,255,0.15);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #fff;
-          font-size: 1.1rem;
-          text-decoration: none;
-          transition: all 0.2s ease;
-        }
-        
-        .social-link:hover {
-          background: linear-gradient(135deg, #4FA9E2, #3A5BA9);
-          transform: translateY(-3px);
-        }
-        
-        .footer-links h5 {
-          color: #fff;
-          font-weight: 700;
-          margin-bottom: 15px;
-          font-size: 1.1rem;
-        }
-        
-        .footer-links ul {
-          list-style: none;
-          padding: 0;
+          opacity: 0.8; line-height: 1.5; font-size: 0.85rem;
+          color: ${darkMode ? 'rgba(255,255,255,0.75)' : 'rgba(0,0,0,0.65)'};
           margin: 0;
         }
         
-        .footer-links li {
-          margin-bottom: 10px;
+        /* ===== PROCESS ===== */
+        .process-section { padding: 60px 0; background: ${darkMode ? '#0f172a' : '#f8fafc'}; }
+        .process-step { text-align: center; padding: 20px 10px; }
+        .step-number {
+          width: 50px; height: 50px; border-radius: 50%;
+          background: #3b82f6; color: #fff;
+          display: flex; align-items: center; justify-content: center;
+          font-size: 1.1rem; font-weight: 700; margin: 0 auto 12px;
         }
+        .step-icon { font-size: 1.3rem; color: #3b82f6; margin-bottom: 10px; display: block; }
+        .process-step h5 { font-weight: 600; margin-bottom: 6px; font-size: 1rem; }
+        .process-step p { opacity: 0.75; font-size: 0.85rem; line-height: 1.4; }
         
+        /* ===== PROJECTS ===== */
+        .project-card {
+          border-radius: 12px; overflow: hidden; border: none;
+          transition: transform 0.2s;
+          background: ${darkMode ? '#1e293b' : '#fff'};
+          box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+        .project-card:hover { transform: translateY(-4px); }
+        .project-img { height: 160px; object-fit: cover; width: 100%; }
+        .project-tags { display: flex; gap: 5px; flex-wrap: wrap; margin: 10px 0; justify-content: center; }
+        .project-tag {
+          font-size: 0.65rem; padding: 3px 9px; border-radius: 12px;
+          background: #3b82f6; color: #fff; font-weight: 500;
+        }
+        .project-btn {
+          background: #2563eb; border: none; border-radius: 18px;
+          padding: 7px 18px; font-weight: 600; font-size: 0.9rem;
+          transition: transform 0.2s;
+        }
+        .project-btn:hover { transform: translateY(-2px); }
+        
+        /* ===== GALLERY ===== */
+        .gallery-section { padding: 50px 0; background: linear-gradient(135deg, #2563eb, #3b82f6); }
+        .gallery-section h2 { font-size: 1.8rem; margin-bottom: 30px; color: #fff; text-align: center; }
+        .carousel-track {
+          display: flex; gap: 15px; padding: 15px 10px;
+          overflow-x: auto; scroll-behavior: smooth;
+          scroll-snap-type: x mandatory; -ms-overflow-style: none; scrollbar-width: none;
+        }
+        .carousel-track::-webkit-scrollbar { display: none; }
+        .carousel-item {
+          min-width: 260px; flex-shrink: 0; border-radius: 12px;
+          overflow: hidden; scroll-snap-align: start; background: #fff;
+        }
+        .carousel-item img { width: 100%; height: 170px; object-fit: cover; }
+        
+        /* ===== STATS ===== */
+        .stats-card {
+          border-radius: 16px; padding: 25px 18px;
+          background: linear-gradient(135deg, #2563eb, #3b82f6);
+          color: #fff; text-align: center; border: none;
+        }
+        .stats-card h3 { font-size: 2rem; font-weight: 700; margin-bottom: 4px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .stats-card p { font-size: 0.9rem; opacity: 0.95; font-weight: 500; }
+        
+        /* ===== TESTIMONIALS ===== */
+        .testimonial {
+          background: ${darkMode ? '#1e293b' : '#fff'};
+          color: ${darkMode ? '#fff' : '#1a1a2e'};
+          border-radius: 16px; padding: 30px;
+          text-align: center; max-width: 600px; margin: 0 auto;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        .testimonial p { font-size: 1.05rem; font-style: italic; line-height: 1.6; margin: 12px 0 18px; }
+        .testimonial-author { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 12px; }
+        .testimonial-avatar {
+          width: 45px; height: 45px; border-radius: 50%;
+          background: linear-gradient(135deg, #3b82f6, #2563eb);
+          display: flex; align-items: center; justify-content: center;
+          font-size: 1.3rem; color: #fff;
+        }
+        .testimonial-info h5 { font-weight: 600; margin-bottom: 2px; font-size: 1rem; }
+        .testimonial-info span { opacity: 0.7; font-size: 0.85rem; }
+        .testimonial-rating { color: #fbbf24; margin: 8px 0; font-size: 0.9rem; }
+        .testimonial-dots { display: flex; justify-content: center; gap: 6px; margin-top: 18px; }
+        .testimonial-dot {
+          width: 8px; height: 8px; border-radius: 50%;
+          background: ${darkMode ? 'rgba(255,255,255,0.3)' : 'rgba(0,0,0,0.2)'};
+          cursor: pointer; transition: all 0.2s;
+        }
+        .testimonial-dot.active { background: #3b82f6; transform: scale(1.15); }
+        
+        /* ===== CONTACT ===== */
+        .contact-section { padding: 60px 0; background: linear-gradient(135deg, #2563eb, #3b82f6); }
+        .contact-section h2 { color: #fff; }
+        .contact-section .section-subtitle { color: rgba(255,255,255,0.9); }
+        .contact-card {
+          background: ${darkMode ? 'rgba(30,41,59,0.98)' : 'rgba(255,255,255,0.98)'};
+          border-radius: 16px; padding: 30px;
+          box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        .contact-info-item {
+          display: flex; align-items: flex-start; gap: 10px;
+          padding: 12px 0; border-bottom: 1px solid ${darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'};
+        }
+        .contact-info-item:last-child { border-bottom: none; }
+        .contact-icon {
+          width: 40px; height: 40px; border-radius: 10px;
+          background: linear-gradient(135deg, #3b82f6, #2563eb);
+          display: flex; align-items: center; justify-content: center;
+          color: #fff; font-size: 1rem; flex-shrink: 0;
+        }
+        .contact-text h5 { font-weight: 600; margin-bottom: 2px; font-size: 0.95rem; }
+        .contact-text p, .contact-text a {
+          opacity: 0.85; text-decoration: none;
+          color: ${darkMode ? '#fff' : '#1a1a2e'}; font-size: 0.9rem;
+        }
+        .contact-form .form-control {
+          border-radius: 10px; padding: 10px 15px;
+          border: 1px solid ${darkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.12)'};
+          background: ${darkMode ? '#0f172a' : '#f8fafc'};
+          color: ${darkMode ? '#fff' : '#000'}; margin-bottom: 12px; font-size: 0.9rem;
+        }
+        .contact-form .form-control:focus {
+          border-color: #3b82f6; box-shadow: 0 0 0 2px rgba(59,130,246,0.15);
+          background: ${darkMode ? '#1e293b' : '#fff'};
+        }
+        .submit-btn {
+          background: linear-gradient(135deg, #2563eb, #3b82f6);
+          border: none; border-radius: 22px; padding: 12px 30px;
+          font-weight: 600; font-size: 0.95rem; color: #fff;
+          transition: transform 0.2s; width: 100%;
+        }
+        .submit-btn:hover { transform: translateY(-2px); }
+        .form-success {
+          text-align: center; padding: 20px; color: #fff;
+          background: linear-gradient(135deg, #22c55e, #16a34a);
+          border-radius: 12px;
+        }
+        .form-success svg { font-size: 2rem; margin-bottom: 10px; }
+        
+        /* ===== FOOTER ===== */
+        .footer {
+          background: ${darkMode ? '#0a0a0a' : '#1a1a2e'};
+          color: rgba(255,255,255,0.9); padding: 40px 0 20px;
+        }
+        .footer-logo { font-size: 1.4rem; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .footer-desc { opacity: 0.85; line-height: 1.6; margin-bottom: 18px; font-size: 0.9rem; }
+        .social-links { display: flex; gap: 8px; }
+        .social-link {
+          width: 36px; height: 36px; border-radius: 10px;
+          background: rgba(255,255,255,0.15); display: flex;
+          align-items: center; justify-content: center;
+          color: #fff; font-size: 1rem; text-decoration: none;
+          transition: all 0.2s;
+        }
+        .social-link:hover { background: #3b82f6; transform: translateY(-2px); }
+        .footer-links h5 { color: #fff; font-weight: 600; margin-bottom: 12px; font-size: 1rem; }
+        .footer-links ul { list-style: none; padding: 0; margin: 0; }
+        .footer-links li { margin-bottom: 8px; }
         .footer-links a {
-          color: rgba(255,255,255,0.8);
-          text-decoration: none;
-          transition: all 0.2s ease;
-          display: flex;
-          align-items: center;
-          gap: 6px;
-          font-size: 0.95rem;
+          color: rgba(255,255,255,0.8); text-decoration: none;
+          transition: all 0.2s; display: flex; align-items: center; gap: 5px; font-size: 0.9rem;
         }
-        
-        .footer-links a:hover {
-          color: #4FA9E2;
-        }
-        
+        .footer-links a:hover { color: #60a5fa; }
         .footer-bottom {
-          border-top: 1px solid rgba(255,255,255,0.15);
-          padding-top: 20px;
-          margin-top: 35px;
-          text-align: center;
-          opacity: 0.8;
-          font-size: 0.9rem;
+          border-top: 1px solid rgba(255,255,255,0.12);
+          padding-top: 18px; margin-top: 30px; text-align: center;
+          opacity: 0.8; font-size: 0.85rem;
         }
         
         /* ===== MODAL ===== */
         .modal-content {
-          border-radius: 20px;
-          border: none;
-          background: ${darkMode ? '#1a1a2e' : '#fff'};
-          box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+          border-radius: 16px; border: none;
+          background: ${darkMode ? '#1e293b' : '#fff'};
         }
-        
-        .modal-header {
-          border-bottom: 1px solid ${darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'};
-          padding: 20px 25px;
-        }
-        
-        .modal-title {
-          font-weight: 700;
-          color: ${darkMode ? '#fff' : '#1E367E'};
-          font-size: 1.4rem;
-        }
-        
-        .modal-body {
-          padding: 25px;
-        }
-        
-        .modal-body img {
-          border-radius: 12px;
-          margin-bottom: 15px;
-          box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-        }
-        
-        .modal-body p {
-          line-height: 1.7;
-          opacity: 0.9;
-          font-size: 0.95rem;
-        }
-        
-        .btn-close {
-          filter: ${darkMode ? 'brightness(0) invert(1)' : 'none'};
-        }
+        .modal-header { border-bottom: 1px solid ${darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'}; padding: 18px 22px; }
+        .modal-title { font-weight: 600; color: ${darkMode ? '#fff' : '#1a1a2e'}; font-size: 1.3rem; }
+        .modal-body { padding: 22px; }
+        .modal-body img { border-radius: 10px; margin-bottom: 12px; }
+        .modal-body p { line-height: 1.6; opacity: 0.9; font-size: 0.95rem; }
+        .btn-close { filter: ${darkMode ? 'brightness(0) invert(1)' : 'none'}; }
         
         /* ===== SERVICE MODAL ===== */
-        .service-modal .modal-content {
-          border-radius: 20px;
-          overflow: hidden;
-          border: none;
-          background: ${darkMode ? '#1a1a2e' : '#fff'};
-        }
-        
-        .service-modal .modal-header {
-          background: linear-gradient(135deg, #1E367E, #3A5BA9);
-          color: #fff;
-          padding: 20px 25px;
-          border: none;
-        }
-        
-        .service-modal .modal-title {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: #fff;
-        }
-        
-        .service-modal .btn-close {
-          filter: brightness(0) invert(1);
-        }
-        
-        .service-modal-content {
-          display: flex;
-          flex-direction: column;
-          gap: 20px;
-        }
-        
-        .service-modal-image {
-          border-radius: 12px;
-          overflow: hidden;
-        }
-        
-        .service-modal-image img {
-          width: 100%;
-          height: 250px;
-          object-fit: cover;
-        }
-        
-        .service-modal-text {
-          padding: 5px 5px;
-        }
-        
-        .service-description {
-          font-size: 1rem;
-          line-height: 1.9;
-          color: ${darkMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)'};
-          margin-bottom: 20px;
-          text-align: right;
-        }
-        
-        .service-features-title {
-          font-size: 1.3rem;
-          font-weight: 700;
-          color: ${darkMode ? '#fff' : '#1E367E'};
-          margin-bottom: 15px;
-          text-align: right;
-        }
-        
-        .service-features-list {
-          list-style: none;
-          padding: 0;
-          margin: 0 0 25px 0;
-        }
-        
+        .service-modal .modal-content { border-radius: 16px; overflow: hidden; border: none; background: ${darkMode ? '#1e293b' : '#fff'}; }
+        .service-modal .modal-header { background: linear-gradient(135deg, #2563eb, #3b82f6); color: #fff; padding: 18px 22px; border: none; }
+        .service-modal .modal-title { font-size: 1.4rem; font-weight: 600; color: #fff; }
+        .service-modal .btn-close { filter: brightness(0) invert(1); }
+        .service-modal-content { display: flex; flex-direction: column; gap: 18px; }
+        .service-modal-image { border-radius: 10px; overflow: hidden; }
+        .service-modal-image img { width: 100%; height: 220px; object-fit: cover; }
+        .service-modal-text { padding: 0 3px; }
+        .service-description { font-size: 0.95rem; line-height: 1.8; color: ${darkMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)'}; margin-bottom: 18px; text-align: right; }
+        .service-features-title { font-size: 1.15rem; font-weight: 600; color: ${darkMode ? '#fff' : '#1a1a2e'}; margin-bottom: 12px; text-align: right; }
+        .service-features-list { list-style: none; padding: 0; margin: 0 0 20px 0; }
         .service-features-list li {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          padding: 10px 0;
-          border-bottom: 1px solid ${darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'};
-          font-size: 0.95rem;
-          color: ${darkMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)'};
+          display: flex; align-items: center; gap: 8px;
+          padding: 8px 0; border-bottom: 1px solid ${darkMode ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.08)'};
+          font-size: 0.9rem; color: ${darkMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)'};
         }
-        
-        .service-features-list li:last-child {
-          border-bottom: none;
-        }
-        
-        .feature-check {
-          color: #4FA9E2;
-          font-size: 1.2rem;
-          flex-shrink: 0;
-        }
-        
+        .service-features-list li:last-child { border-bottom: none; }
+        .feature-check { color: #3b82f6; font-size: 1.1rem; flex-shrink: 0; }
         .contact-btn {
-          background: linear-gradient(135deg, #1E367E, #3A5BA9);
-          border: none;
-          border-radius: 25px;
-          padding: 14px 35px;
-          font-weight: 700;
-          font-size: 1rem;
-          color: #fff;
-          transition: all 0.2s ease;
-          width: 100%;
-          margin-top: 5px;
+          background: linear-gradient(135deg, #2563eb, #3b82f6);
+          border: none; border-radius: 22px; padding: 12px 30px;
+          font-weight: 600; font-size: 0.95rem; color: #fff;
+          transition: transform 0.2s; width: 100%; margin-top: 3px;
         }
-        
-        .contact-btn:hover {
-          transform: translateY(-2px);
-        }
-        
+        .contact-btn:hover { transform: translateY(-2px); }
         @media (min-width: 768px) {
-          .service-modal-content {
-            flex-direction: row;
-          }
-          .service-modal-image {
-            flex: 1;
-          }
-          .service-modal-image img {
-            height: 100%;
-            min-height: 350px;
-          }
-          .service-modal-text {
-            flex: 1.3;
-          }
+          .service-modal-content { flex-direction: row; }
+          .service-modal-image { flex: 1; }
+          .service-modal-image img { height: 100%; min-height: 300px; }
+          .service-modal-text { flex: 1.2; }
         }
         
         /* ===== RESPONSIVE ===== */
         @media (max-width: 992px) {
-          .hero-title { font-size: 2.5rem; }
-          .hero-subtitle { font-size: 1.4rem; }
-          .section-title { font-size: 2.2rem; }
+          .hero-title { font-size: 2.1rem; }
+          .hero-subtitle { font-size: 1.25rem; }
+          .section-title { font-size: 1.7rem; }
           .nav-dots { display: none; }
         }
-        
         @media (max-width: 768px) {
-          .hero { padding: 60px 20px; min-height: auto; }
-          .hero-title { font-size: 2rem; }
-          .hero-subtitle { font-size: 1.2rem; min-height: auto; }
-          .hero-desc { font-size: 1rem; }
-          .section-title { font-size: 1.8rem; }
-          .section-subtitle { font-size: 1rem; }
-          .service-card { padding: 20px 15px; }
-          .carousel-item-cinema { min-width: 250px; }
-          .carousel-item-cinema img { height: 160px; }
-          .about-content { padding-left: 0; text-align: center; }
-          .team-list li { text-align: center; }
-          .contact-card { padding: 25px 20px; }
-          .why-choose-title { text-align: center; }
-          .why-choose-text { text-align: center; }
-          .why-choose-features { align-items: center; }
+          .hero { padding: 50px 20px; min-height: auto; }
+          .hero-title { font-size: 1.8rem; }
+          .hero-subtitle { font-size: 1.1rem; min-height: auto; }
+          .hero-desc { font-size: 0.95rem; }
+          .section-title { font-size: 1.5rem; }
+          .section-subtitle { font-size: 0.95rem; }
+          .service-card { padding: 16px 12px; }
+          .carousel-item { min-width: 220px; }
+          .carousel-item img { height: 140px; }
+          .contact-card { padding: 22px 18px; }
+          .about-title { font-size: 1.5rem; text-align: center; }
+          .about-title::after { left: 50%; transform: translateX(-50%); }
+          .about-desc { text-align: center; }
+          .about-highlights { align-items: center; }
         }
-        
         @media (max-width: 480px) {
-          .hero-title { font-size: 1.7rem; }
-          .section-title { font-size: 1.6rem; }
-          .stats-card h3 { font-size: 2rem; }
-          .testimonial { padding: 25px 20px; }
-          .testimonial p { font-size: 1rem; }
-          .process-step { padding: 20px 10px; }
-          .step-number { width: 50px; height: 50px; font-size: 1.1rem; }
+          .hero-title { font-size: 1.5rem; }
+          .section-title { font-size: 1.4rem; }
+          .stats-card h3 { font-size: 1.7rem; }
+          .testimonial { padding: 22px 18px; }
+          .testimonial p { font-size: 0.95rem; }
+          .process-step { padding: 18px 8px; }
+          .step-number { width: 42px; height: 42px; font-size: 1rem; }
         }
       `}</style>
 
-      {/* ===== NAVIGATION DOTS ===== */}
+      {/* ===== NAV DOTS ===== */}
       <div className="nav-dots">
         {["home", "about", "services", "projects", "process", "gallery", "stats", "testimonials", "contact"].map((section) => (
           <div
@@ -1247,7 +739,7 @@ function Home({ darkMode = false }) {
         ))}
       </div>
 
-      {/* ===== HERO SECTION ===== */}
+      {/* ===== HERO ===== */}
       <section className="hero" id="home" ref={(el) => (sectionRefs.current["home"] = el)}>
         <div className="hero-content">
           <h1 className="hero-title">InFuture Digital Solutions</h1>
@@ -1256,14 +748,14 @@ function Home({ darkMode = false }) {
             <span className="typed-cursor">|</span>
           </p>
           <p className="hero-desc">
-            شريكك الرقمي الموثوق ✨ نقدم حلولاً متكاملة من التدريب حتى التنفيذ،
-            مع التركيز على الإبداع والجودة لتحقيق نجاح مشروعك في العالم الرقمي.
+            شريكك الرقمي الموثوق ✨ حلول متكاملة من الفكرة حتى التنفيذ،
+            بجودة واحترافية لضمان نجاح مشروعك.
           </p>
           <Button
             className="glow-button"
             onClick={() => window.open("https://wa.me/201108293956", "_blank")}
           >
-            <FaWhatsapp style={{ marginRight: "8px" }} /> ابدأ مشروعك الآن
+            <FaWhatsapp style={{ marginRight: "6px" }} /> ابدأ الآن
           </Button>
         </div>
         <div className="scroll-indicator" onClick={() => scrollToSection("about")}>
@@ -1271,68 +763,58 @@ function Home({ darkMode = false }) {
         </div>
       </section>
 
-      {/* ===== WHY CHOOSE US SECTION ===== */}
-      <section className="why-choose-section" id="about" ref={(el) => (sectionRefs.current["about"] = el)}>
+      {/* ===== ABOUT SECTION - SIMPLE & CLEAN ===== */}
+      <section className="about-section" id="about" ref={(el) => (sectionRefs.current["about"] = el)}>
         <Container>
-          <Row className="align-items-center">
-            <Col md={6} className="mb-4 mb-md-0">
-              <div className="why-choose-content">
-                <h2 className="why-choose-title">لماذا نحن خيارك الأمثل</h2>
-                <p className="why-choose-text">
-                  نعتقد أن كل عمل له طبيعته الخاصة ويستحق نهجًا مخصصًا في الحلول الرقمية. 
-                  لهذا السبب، نتعاون معكم بشكل وثيق لفهم أهدافكم واحتياجاتكم، ثم نعمل على 
-                  تطوير استراتيجيات تتماشى مع توقعاتكم وتحقق نتائج أفضل.
-                </p>
-                <p className="why-choose-text">
-                  في <strong>InFuture Digital Solutions</strong>، نؤمن بأن النجاح الرقمي 
-                  يبدأ من فهم عميق لاحتياجات عملائنا. منذ عام 2025، نعمل على تقديم حلول 
-                  مبتكرة ومتكاملة في مجال التطوير والتصميم الرقمي، مع التركيز على الجودة 
-                  والاحترافية في كل مشروع.
-                </p>
-                <div className="why-choose-features mt-4">
-                  <div className="feature-item">
-                    <FaCheckCircle className="feature-icon" />
-                    <span>حلول مخصصة لكل عميل</span>
-                  </div>
-                  <div className="feature-item">
-                    <FaCheckCircle className="feature-icon" />
-                    <span>فريق متخصص وذو خبرة</span>
-                  </div>
-                  <div className="feature-item">
-                    <FaCheckCircle className="feature-icon" />
-                    <span>دعم مستمر بعد التنفيذ</span>
-                  </div>
+          <div className="about-container">
+            <div className="about-text">
+              <h2 className="about-title">من نحن</h2>
+              <p className="about-desc">
+                في <strong>InFuture</strong>، نؤمن أن كل مشروع فريد ويستحق اهتمامًا خاصًا.
+                نعمل معك خطوة بخطوة لفهم أهدافك وتقديم الحلول الأنسب.
+              </p>
+              <p className="about-desc">
+                منذ انطلاقتنا، ركزنا على الجمع بين الإبداع والتقنية لتقديم تجارب رقمية
+                استثنائية تساعد عملاءنا على النمو والتميز في سوقهم.
+              </p>
+              <div className="about-highlights">
+                <div className="highlight-item">
+                  <FaCheckCircle className="highlight-icon" />
+                  <span>حلول مخصصة تناسب احتياجاتك</span>
+                </div>
+                <div className="highlight-item">
+                  <FaCheckCircle className="highlight-icon" />
+                  <span>فريق محترف ذو خبرة واسعة</span>
+                </div>
+                <div className="highlight-item">
+                  <FaCheckCircle className="highlight-icon" />
+                  <span>دعم فني مستمر حتى بعد التسليم</span>
                 </div>
               </div>
-            </Col>
-            <Col md={6} className="text-center">
-              <div className="why-choose-image">
-                <img
-                  src="https://www.qeematech.net/wp-content/uploads/2024/04/traffic-img.png.webp"
-                  alt="Why Choose Us"
-                  className="img-fluid"
-                />
-              </div>
-            </Col>
-          </Row>
+            </div>
+            <div className="about-image">
+              <img
+                src="https://www.qeematech.net/wp-content/uploads/2024/04/traffic-img.png.webp"
+                alt="من نحن"
+                className="img-fluid"
+              />
+            </div>
+          </div>
         </Container>
       </section>
 
-      {/* ===== SERVICES SECTION ===== */}
+      {/* ===== SERVICES ===== */}
       <Container className="py-5" id="services" ref={(el) => (sectionRefs.current["services"] = el)}>
         <div className="text-center mb-5">
-          <h2 className="section-title">خدماتنا المميزة</h2>
+          <h2 className="section-title">خدماتنا</h2>
           <p className="section-subtitle">
-            نقدم مجموعة متكاملة من الخدمات الرقمية المصممة خصيصاً لتحقيق أهدافك وتنمية مشروعك
+            مجموعة متكاملة من الخدمات الرقمية لتنمية مشروعك
           </p>
         </div>
         <Row>
           {services.map((s, idx) => (
             <Col md={4} sm={6} className="mb-4" key={idx}>
-              <Card
-                className="service-card h-100"
-                onClick={() => openServiceModal(s)}
-              >
+              <Card className="service-card h-100" onClick={() => openServiceModal(s)}>
                 <div className="service-image-wrapper">
                   <img src={s.img} alt={s.title} />
                 </div>
@@ -1346,14 +828,12 @@ function Home({ darkMode = false }) {
         </Row>
       </Container>
 
-      {/* ===== PROCESS SECTION ===== */}
+      {/* ===== PROCESS ===== */}
       <section className="process-section" id="process" ref={(el) => (sectionRefs.current["process"] = el)}>
         <Container>
           <div className="text-center mb-5">
-            <h2 className="section-title">خطوات عملنا</h2>
-            <p className="section-subtitle">
-              منهجية واضحة ومجربة تضمن لك أفضل النتائج في كل مرحلة من مراحل المشروع
-            </p>
+            <h2 className="section-title">خطوات العمل</h2>
+            <p className="section-subtitle">منهجية بسيطة وواضحة لضمان أفضل النتائج</p>
           </div>
           <Row className="justify-content-center">
             {processSteps.map((step, idx) => (
@@ -1370,18 +850,16 @@ function Home({ darkMode = false }) {
         </Container>
       </section>
 
-      {/* ===== PROJECTS SECTION ===== */}
+      {/* ===== PROJECTS ===== */}
       <Container className="py-5" id="projects" ref={(el) => (sectionRefs.current["projects"] = el)}>
         <div className="text-center mb-5">
-          <h2 className="section-title">أحدث أعمالنا</h2>
-          <p className="section-subtitle">
-            نماذج من مشاريعنا الناجحة التي نفخر بتقديمها لعملائنا الكرام
-          </p>
+          <h2 className="section-title">أعمالنا</h2>
+          <p className="section-subtitle">نماذج من مشاريعنا التي نفخر بها</p>
         </div>
         <Row className="justify-content-center">
           {projects.map((p, idx) => (
             <Col md={6} lg={4} sm={6} className="mb-4 d-flex justify-content-center" key={idx}>
-              <Card className="project-card shadow h-100 text-center" style={{ maxWidth: "340px" }}>
+              <Card className="project-card h-100 text-center" style={{ maxWidth: "320px" }}>
                 <img src={p.img} alt={p.title} className="img-fluid project-img" />
                 <div className="p-4">
                   <h5 className="fw-bold">{p.title}</h5>
@@ -1391,12 +869,8 @@ function Home({ darkMode = false }) {
                       <span key={i} className="project-tag">{tag}</span>
                     ))}
                   </div>
-                  <Button
-                    variant="primary"
-                    className="project-btn mt-2"
-                    onClick={() => window.open(p.link, "_blank")}
-                  >
-                    عرض المشروع <FaArrowRight style={{ marginLeft: "5px", fontSize: "0.8rem" }} />
+                  <Button variant="primary" className="project-btn mt-2" onClick={() => window.open(p.link, "_blank")}>
+                    عرض <FaArrowRight style={{ marginLeft: "4px", fontSize: "0.7rem" }} />
                   </Button>
                 </div>
               </Card>
@@ -1405,17 +879,27 @@ function Home({ darkMode = false }) {
         </Row>
       </Container>
 
+      {/* ===== GALLERY ===== */}
+      <section className="gallery-section" id="gallery" ref={(el) => (sectionRefs.current["gallery"] = el)}>
+        <Container>
+          <h2>المعرض</h2>
+          <div className="carousel-track" ref={carouselRef} onMouseEnter={() => setIsHovering(true)} onMouseLeave={() => setIsHovering(false)}>
+            {galleryImages.map((img, idx) => (
+              <div className="carousel-item" key={idx}>
+                <img src={img} alt={`Gallery ${idx + 1}`} />
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
 
-      {/* ===== STATS SECTION ===== */}
+      {/* ===== STATS ===== */}
       <Container className="py-5" id="stats" ref={(el) => (sectionRefs.current["stats"] = el)}>
         <Row className="text-center">
           {stats.map((stat, idx) => (
             <Col md={3} sm={6} className="mb-4" key={idx}>
               <Card className="stats-card h-100">
-                <h3>
-                  <CountUp end={stat.number} duration={2} />+
-                  <span className="stats-icon">{stat.icon}</span>
-                </h3>
+                <h3><CountUp end={stat.number} duration={2} />+ {stat.icon}</h3>
                 <p>{stat.label}</p>
               </Card>
             </Col>
@@ -1423,19 +907,15 @@ function Home({ darkMode = false }) {
         </Row>
       </Container>
 
-      {/* ===== TESTIMONIALS SECTION ===== */}
+      {/* ===== TESTIMONIALS ===== */}
       <Container className="py-5" id="testimonials" ref={(el) => (sectionRefs.current["testimonials"] = el)}>
         <div className="text-center mb-5">
-          <h2 className="section-title">آراء عملائنا</h2>
-          <p className="section-subtitle">
-            ثقة عملائنا هي أكبر دافع لنا لمواصلة التميز والإبداع
-          </p>
+          <h2 className="section-title">آراء العملاء</h2>
+          <p className="section-subtitle">ثقتكم هي دافعنا للاستمرار</p>
         </div>
         <div className="testimonial">
           <div className="testimonial-rating">
-            {Array.from({ length: testimonials[testimonialIndex].rating }).map((_, i) => (
-              <FaStar key={i} />
-            ))}
+            {Array.from({ length: testimonials[testimonialIndex].rating }).map((_, i) => <FaStar key={i} />)}
           </div>
           <p>"{testimonials[testimonialIndex].text}"</p>
           <div className="testimonial-author">
@@ -1447,56 +927,39 @@ function Home({ darkMode = false }) {
           </div>
           <div className="testimonial-dots">
             {testimonials.map((_, idx) => (
-              <div
-                key={idx}
-                className={`testimonial-dot ${testimonialIndex === idx ? "active" : ""}`}
-                onClick={() => setTestimonialIndex(idx)}
-              />
+              <div key={idx} className={`testimonial-dot ${testimonialIndex === idx ? "active" : ""}`} onClick={() => setTestimonialIndex(idx)} />
             ))}
           </div>
         </div>
       </Container>
 
-      {/* ===== CONTACT SECTION ===== */}
+      {/* ===== CONTACT ===== */}
       <section className="contact-section" id="contact" ref={(el) => (sectionRefs.current["contact"] = el)}>
         <Container>
           <div className="text-center mb-5">
             <h2 className="section-title">تواصل معنا</h2>
-            <p className="section-subtitle">
-              فريقنا جاهز لمساعدتك في تحويل أفكارك إلى واقع رقمي ملموس
-            </p>
+            <p className="section-subtitle">فريقنا جاهز لمساعدتك</p>
           </div>
           <Row className="justify-content-center">
             <Col lg={10}>
               <div className="contact-card">
                 <Row>
                   <Col md={5} className="mb-4 mb-md-0">
-                    <h4 className="mb-4" style={{ color: darkMode ? '#fff' : '#1E367E', fontWeight: 700 }}>
-                      معلومات التواصل
-                    </h4>
+                    <h4 className="mb-4" style={{ color: darkMode ? '#fff' : '#1a1a2e', fontWeight: 600 }}>معلومات التواصل</h4>
                     <div className="contact-info-item">
                       <div className="contact-icon"><FaEnvelope /></div>
-                      <div className="contact-text">
-                        <h5>البريد الإلكتروني</h5>
-                        <a href="mailto:info@infuture.com">infuturedigitall@gmail.com</a>
-                      </div>
+                      <div className="contact-text"><h5>البريد</h5><a href="mailto:infuturedigitall@gmail.com">infuturedigitall@gmail.com</a></div>
                     </div>
                     <div className="contact-info-item">
                       <div className="contact-icon"><FaPhone /></div>
-                      <div className="contact-text">
-                        <h5>رقم التواصل</h5>
-                        <a href="tel:+201108293956">+20 110 829 3956</a>
-                      </div>
+                      <div className="contact-text"><h5>الهاتف</h5><a href="tel:+201108293956">+20 110 829 3956</a></div>
                     </div>
                     <div className="contact-info-item">
                       <div className="contact-icon"><FaMapMarkerAlt /></div>
-                      <div className="contact-text">
-                        <h5>الموقع</h5>
-                        <p>القاهرة، جمهورية مصر العربية</p>
-                      </div>
+                      <div className="contact-text"><h5>الموقع</h5><p>القاهرة، مصر</p></div>
                     </div>
                     <div className="mt-4">
-                      <h5 className="mb-3" style={{ color: darkMode ? '#fff' : '#1E367E' }}>تابعنا</h5>
+                      <h5 className="mb-3" style={{ color: darkMode ? '#fff' : '#1a1a2e' }}>تابعنا</h5>
                       <div className="social-links">
                         <a href="#" className="social-link"><FaFacebook /></a>
                         <a href="#" className="social-link"><FaTwitter /></a>
@@ -1506,48 +969,17 @@ function Home({ darkMode = false }) {
                     </div>
                   </Col>
                   <Col md={7}>
-                    <h4 className="mb-4" style={{ color: darkMode ? '#fff' : '#1E367E', fontWeight: 700 }}>
-                      أرسل لنا رسالة
-                    </h4>
+                    <h4 className="mb-4" style={{ color: darkMode ? '#fff' : '#1a1a2e', fontWeight: 600 }}>أرسل رسالة</h4>
                     {formSubmitted ? (
                       <div className="form-success">
-                        <FaCheckCircle />
-                        <h5 className="mb-2">تم إرسال رسالتك بنجاح! ✓</h5>
-                        <p style={{ opacity: 0.9 }}>سنتواصل معك في أقرب وقت ممكن</p>
+                        <FaCheckCircle /><h5 className="mb-2">تم الإرسال ✓</h5><p style={{ opacity: 0.9 }}>سنتواصل معك قريبًا</p>
                       </div>
                     ) : (
                       <Form onSubmit={handleFormSubmit} className="contact-form">
-                        <Form.Group>
-                          <Form.Control
-                            type="text"
-                            placeholder="اسمك الكامل *"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            required
-                          />
-                        </Form.Group>
-                        <Form.Group>
-                          <Form.Control
-                            type="email"
-                            placeholder="بريدك الإلكتروني *"
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            required
-                          />
-                        </Form.Group>
-                        <Form.Group>
-                          <Form.Control
-                            as="textarea"
-                            rows={4}
-                            placeholder="رسالتك *"
-                            value={formData.message}
-                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                            required
-                          />
-                        </Form.Group>
-                        <Button type="submit" className="submit-btn">
-                          إرسال الرسالة <FaArrowRight style={{ marginLeft: "8px" }} />
-                        </Button>
+                        <Form.Group><Form.Control type="text" placeholder="الاسم *" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required /></Form.Group>
+                        <Form.Group><Form.Control type="email" placeholder="البريد *" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} required /></Form.Group>
+                        <Form.Group><Form.Control as="textarea" rows={4} placeholder="الرسالة *" value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} required /></Form.Group>
+                        <Button type="submit" className="submit-btn">إرسال <FaArrowRight style={{ marginLeft: "6px" }} /></Button>
                       </Form>
                     )}
                   </Col>
@@ -1558,75 +990,80 @@ function Home({ darkMode = false }) {
         </Container>
       </section>
 
+      {/* ===== FOOTER ===== */}
+      <footer className="footer">
+        <Container>
+          <Row>
+            <Col md={4} className="mb-4">
+              <div className="footer-logo"><FaRocket /> <span>InFuture</span></div>
+              <p className="footer-desc">حلول رقمية مبتكرة لنجاح مشروعك في العالم الرقمي.</p>
+              <div className="social-links">
+                <a href="#" className="social-link"><FaFacebook /></a>
+                <a href="#" className="social-link"><FaTwitter /></a>
+                <a href="#" className="social-link"><FaLinkedin /></a>
+                <a href="#" className="social-link"><FaInstagram /></a>
+              </div>
+            </Col>
+            <Col md={4} className="mb-4">
+              <div className="footer-links">
+                <h5>روابط</h5>
+                <ul>
+                  <li><FaArrowRight style={{ fontSize: "0.65rem" }} /> <a href="#home">الرئيسية</a></li>
+                  <li><FaArrowRight style={{ fontSize: "0.65rem" }} /> <a href="#services">خدماتنا</a></li>
+                  <li><FaArrowRight style={{ fontSize: "0.65rem" }} /> <a href="#projects">أعمالنا</a></li>
+                  <li><FaArrowRight style={{ fontSize: "0.65rem" }} /> <a href="#contact">تواصل</a></li>
+                </ul>
+              </div>
+            </Col>
+            <Col md={4}>
+              <div className="footer-links">
+                <h5>الخدمات</h5>
+                <ul>
+                  <li><FaArrowRight style={{ fontSize: "0.65rem" }} /> <a href="#services">إعلانات ممولة</a></li>
+                  <li><FaArrowRight style={{ fontSize: "0.65rem" }} /> <a href="#services">SEO</a></li>
+                  <li><FaArrowRight style={{ fontSize: "0.65rem" }} /> <a href="#services">سوشيال ميديا</a></li>
+                  <li><FaArrowRight style={{ fontSize: "0.65rem" }} /> <a href="#services">تصميم مواقع</a></li>
+                </ul>
+              </div>
+            </Col>
+          </Row>
+          <div className="footer-bottom">© {new Date().getFullYear()} InFuture. جميع الحقوق محفوظة.</div>
+        </Container>
+      </footer>
 
       {/* ===== PROJECT MODAL ===== */}
       <Modal show={modalShow} onHide={() => setModalShow(false)} centered size="lg">
         {selectedProject && (
           <>
-            <Modal.Header closeButton>
-              <Modal.Title>{selectedProject.title}</Modal.Title>
-            </Modal.Header>
+            <Modal.Header closeButton><Modal.Title>{selectedProject.title}</Modal.Title></Modal.Header>
             <Modal.Body>
-              <img
-                src={selectedProject.img}
-                alt={selectedProject.title}
-                className="img-fluid rounded mb-3"
-              />
+              <img src={selectedProject.img} alt={selectedProject.title} className="img-fluid rounded mb-3" />
               <p className="mb-3">{selectedProject.desc}</p>
-              <div className="project-tags mb-3">
-                {selectedProject.tags?.map((tag, i) => (
-                  <span key={i} className="project-tag">{tag}</span>
-                ))}
-              </div>
-              <Button
-                variant="primary"
-                className="project-btn"
-                onClick={() => window.open(selectedProject.link, "_blank")}
-              >
-                زيارة الموقع <FaArrowRight style={{ marginLeft: "5px" }} />
-              </Button>
+              <div className="project-tags mb-3">{selectedProject.tags?.map((tag, i) => <span key={i} className="project-tag">{tag}</span>)}</div>
+              <Button variant="primary" className="project-btn" onClick={() => window.open(selectedProject.link, "_blank")}>زيارة الموقع <FaArrowRight style={{ marginLeft: "4px" }} /></Button>
             </Modal.Body>
           </>
         )}
       </Modal>
 
-      {/* ===== SERVICE DETAILS MODAL ===== */}
-      <Modal 
-        show={modalShow} 
-        onHide={() => setModalShow(false)} 
-        centered 
-        size="lg"
-        className="service-modal"
-      >
+      {/* ===== SERVICE MODAL ===== */}
+      <Modal show={modalShow} onHide={() => setModalShow(false)} centered size="lg" className="service-modal">
         {selectedService && (
           <>
-            <Modal.Header closeButton>
-              <Modal.Title>{selectedService.title}</Modal.Title>
-            </Modal.Header>
+            <Modal.Header closeButton><Modal.Title>{selectedService.title}</Modal.Title></Modal.Header>
             <Modal.Body>
               <div className="service-modal-content">
-                <div className="service-modal-image">
-                  <img src={selectedService.img} alt={selectedService.title} />
-                </div>
+                <div className="service-modal-image"><img src={selectedService.img} alt={selectedService.title} /></div>
                 <div className="service-modal-text">
                   <p className="service-description">{selectedService.details}</p>
                   <h5 className="service-features-title">مميزات الخدمة:</h5>
                   <ul className="service-features-list">
                     {selectedService.features.map((feature, idx) => (
-                      <li key={idx}>
-                        <FaCheckCircle className="feature-check" />
-                        <span>{feature}</span>
-                      </li>
+                      <li key={idx}><FaCheckCircle className="feature-check" /><span>{feature}</span></li>
                     ))}
                   </ul>
-                  <Button 
-                    className="contact-btn"
-                    onClick={() => {
-                      setModalShow(false);
-                      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-                    }}
-                  >
-                    اطلب الخدمة الآن <FaArrowRight style={{ marginRight: '8px' }} />
+                  <Button className="contact-btn" onClick={() => { setModalShow(false); document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); }}>
+                    اطلب الخدمة <FaArrowRight style={{ marginRight: '6px' }} />
                   </Button>
                 </div>
               </div>
