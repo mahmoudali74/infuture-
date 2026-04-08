@@ -523,10 +523,7 @@ export default function Home() {
                 <li key={s}><a href={`#${s}`} onClick={() => scrollToSection(s)}>{s === "home" ? "الرئيسية" : s === "about" ? "من نحن" : s === "services" ? "خدماتنا" : s === "projects" ? "أعمالنا" : "تواصل معنا"}</a></li>
               ))}
             </ul>
-            <div style={{display: "flex", alignItems: "center", gap: "12px"}}>
-              <Button className="cta-btn" onClick={() => window.open("https://wa.me/201108293956", "_blank")}>
-                <FaWhatsapp/> واتساب
-              </Button>
+           
               <button className="mobile-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Menu">
                 {mobileMenuOpen ? <FaTimes/> : <FaBars/>}
               </button>
