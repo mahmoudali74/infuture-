@@ -517,7 +517,7 @@ export default function Home() {
       <header className="header">
         <Container>
           <div className="header-inner">
-            <img src="/assets/photo_5807827848113360265_y.jpg" alt="InFuture Logo" className="logo" />
+            <img src="/assets/photo_2026-04-07_19-56-12.jpg" alt="InFuture Logo" className="logo" />
             <ul className={`nav-menu ${mobileMenuOpen ? "open" : ""}`}>
               {["home", "about", "services", "projects", "contact"].map(s => (
                 <li key={s}><a href={`#${s}`} onClick={() => scrollToSection(s)}>{s === "home" ? "الرئيسية" : s === "about" ? "من نحن" : s === "services" ? "خدماتنا" : s === "projects" ? "أعمالنا" : "تواصل معنا"}</a></li>
