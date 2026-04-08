@@ -8,10 +8,10 @@ import Home from "./Components/Home";
 function App() {
   return (
     <div>
-      <CustomNavbar />
+
 
       <Home />
-      <Footer />
+
     </div>
   );
 }
