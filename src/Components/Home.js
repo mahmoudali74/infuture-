@@ -523,11 +523,11 @@ export default function Home() {
                 <li key={s}><a href={`#${s}`} onClick={() => scrollToSection(s)}>{s === "home" ? "الرئيسية" : s === "about" ? "من نحن" : s === "services" ? "خدماتنا" : s === "projects" ? "أعمالنا" : "تواصل معنا"}</a></li>
               ))}
             </ul>
-           
+          
               <button className="mobile-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Menu">
                 {mobileMenuOpen ? <FaTimes/> : <FaBars/>}
               </button>
-            </div>
+            
           </div>
         </Container>
       </header>
